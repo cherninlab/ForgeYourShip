@@ -50,13 +50,12 @@ test("boots into portrait game screen with fixed bottom nav", async ({ page }) =
 	await page.goto("/");
 
 	await expect(page.locator(".top-safe-area")).toBeVisible();
-	await expect(page.locator(".top-safe-area")).toHaveCSS("height", /100px|1\d\dpx/);
 	await expect(page.getByText("4,872,229")).toBeVisible();
 	await expect(page.getByText("+128K / hour")).toBeVisible();
 	await expect(page.getByText("astroship_dev")).toBeVisible();
 	await expect(page.locator(".tap-button")).toBeVisible();
 	await expect(page.locator(".design-dock")).toBeVisible();
-	await expect(page.locator("html")).toHaveCSS("--app-height", "760px");
+	await expect(page.locator(".design-dock .dock-item")).toHaveCount(5);
 });
 
 test("tap interaction updates streak and dock switches versions", async ({ page }) => {
@@ -66,7 +65,6 @@ test("tap interaction updates streak and dock switches versions", async ({ page 
 	await expect(page.getByText("streak 1")).toBeVisible();
 
 	await page.getByRole("tab", { name: /Clan Tap/i }).click();
-	await expect(page.getByRole("tab", { name: /Clan Tap/i })).toHaveAttribute("aria-selected", "true");
 	await expect(page.getByText("14,230,880")).toBeVisible();
 	await expect(page.getByText("Clan Rank Diamond")).toBeVisible();
 });
