@@ -10,10 +10,16 @@
 	--accent-2: #9e7eff;
 	--button-text: #07111b;
 	--shadow: 0 34px 90px rgba(0, 0, 0, 0.35);
+	--app-height: 100vh;
+	--app-safe-top: 0px;
+	--app-safe-bottom: 0px;
+	--app-safe-left: 0px;
+	--app-safe-right: 0px;
 }
 
 * {
 	box-sizing: border-box;
+	-webkit-tap-highlight-color: transparent;
 }
 
 html {
@@ -29,6 +35,7 @@ body {
 		radial-gradient(circle at 18% 10%, color-mix(in oklab, var(--accent) 20%, transparent), transparent 28%),
 		radial-gradient(circle at 82% 0%, color-mix(in oklab, var(--accent-2) 20%, transparent), transparent 30%),
 		linear-gradient(180deg, var(--bg-a), var(--bg-b));
+	overflow-x: hidden;
 }
 
 button {
@@ -40,19 +47,17 @@ button {
 }
 
 .app-shell {
-	min-height: 100vh;
-	padding: 0 12px 24px;
+	min-height: var(--app-height);
+	padding: 0 max(12px, var(--app-safe-left)) calc(116px + var(--app-safe-bottom)) max(12px, var(--app-safe-right));
 }
 
 .top-safe-area {
-	height: calc(100px + env(safe-area-inset-top, 0px));
+	height: calc(100px + var(--app-safe-top));
 }
 
 .screen-wrap {
 	width: min(560px, 100%);
 	margin: 0 auto;
-	display: grid;
-	gap: 16px;
 }
 
 .phone-shell {
@@ -91,6 +96,7 @@ button {
 
 .topbar,
 .balance-block,
+.status-strip,
 .tap-zone,
 .boost-row,
 .quick-row {
@@ -134,6 +140,7 @@ button {
 }
 
 .tiny-label,
+.status-pill span,
 .boost-pill span,
 .quick-card span,
 .dock-label {
@@ -144,7 +151,7 @@ button {
 }
 
 .balance-block {
-	padding: 18px 4px 10px;
+	padding: 18px 4px 8px;
 	text-align: center;
 }
 
@@ -154,7 +161,7 @@ button {
 
 .balance-block h1 {
 	margin: 10px 0 12px;
-	font-size: clamp(2.8rem, 12vw, 4.4rem);
+	font-size: clamp(2.9rem, 12vw, 4.5rem);
 	line-height: 0.88;
 	letter-spacing: -0.06em;
 }
@@ -169,12 +176,39 @@ button {
 	color: var(--muted);
 }
 
+.status-strip {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: 10px;
+	margin-top: 12px;
+}
+
+.status-pill,
+.boost-pill,
+.quick-card {
+	border-radius: 18px;
+	background: rgba(255, 255, 255, 0.05);
+}
+
+.status-pill {
+	padding: 12px 10px;
+	text-align: center;
+}
+
+.status-pill strong,
+.boost-pill strong,
+.quick-card strong {
+	display: block;
+	margin-top: 7px;
+	font-size: 1.03rem;
+}
+
 .tap-zone {
 	position: relative;
-	min-height: 390px;
+	min-height: 420px;
 	display: grid;
 	place-items: center;
-	margin-top: 4px;
+	margin-top: 10px;
 }
 
 .tap-aura {
@@ -189,6 +223,21 @@ button {
 		radial-gradient(circle, color-mix(in oklab, var(--accent) 18%, transparent), transparent 64%);
 }
 
+.tap-button {
+	border: none;
+	padding: 0;
+	background: transparent;
+	cursor: pointer;
+	position: relative;
+	z-index: 1;
+	touch-action: manipulation;
+	transition: transform 120ms ease;
+}
+
+.tap-button:active {
+	transform: scale(0.965);
+}
+
 .hero-svg {
 	width: min(360px, 84vw);
 	height: auto;
@@ -197,16 +246,17 @@ button {
 
 .tap-core-copy {
 	position: absolute;
-	bottom: 24px;
+	bottom: 14px;
 	left: 50%;
 	transform: translateX(-50%);
 	display: grid;
 	justify-items: center;
-	gap: 6px;
+	gap: 4px;
+	pointer-events: none;
 }
 
 .tap-core-copy strong {
-	font-size: 1.6rem;
+	font-size: 1.7rem;
 	letter-spacing: 0.22em;
 }
 
@@ -217,22 +267,34 @@ button {
 	background: rgba(255, 255, 255, 0.06);
 	color: var(--muted);
 	font-size: 0.84rem;
+	pointer-events: none;
 }
 
 .side-badge-left {
 	left: 8px;
-	top: 28%;
+	top: 29%;
 }
 
 .side-badge-right {
 	right: 8px;
-	top: 28%;
+	top: 29%;
 }
 
 .side-badge-bottom {
 	left: 50%;
-	bottom: 66px;
+	bottom: 58px;
 	transform: translateX(-50%);
+}
+
+.tap-burst {
+	position: absolute;
+	transform: translate(-50%, -50%);
+	font-weight: 800;
+	font-size: 1rem;
+	color: var(--text);
+	text-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+	animation: burst-up 650ms ease forwards;
+	pointer-events: none;
 }
 
 .boost-row {
@@ -244,19 +306,19 @@ button {
 
 .boost-pill {
 	border: none;
-	border-radius: 20px;
 	padding: 14px 10px;
-	background: rgba(255, 255, 255, 0.05);
 	color: var(--text);
 	display: grid;
 	justify-items: center;
 	gap: 7px;
 	cursor: pointer;
+	touch-action: manipulation;
 }
 
-.boost-pill strong,
-.quick-card strong {
-	font-size: 1.05rem;
+.boost-pill:active,
+.quick-card:active,
+.dock-item:active {
+	transform: scale(0.98);
 }
 
 .quick-row {
@@ -268,8 +330,6 @@ button {
 
 .quick-card {
 	padding: 12px 10px;
-	border-radius: 18px;
-	background: rgba(255, 255, 255, 0.04);
 	text-align: center;
 }
 
@@ -278,14 +338,20 @@ button {
 }
 
 .design-dock {
+	position: fixed;
+	left: 50%;
+	bottom: calc(10px + var(--app-safe-bottom));
+	transform: translateX(-50%);
+	width: min(560px, calc(100vw - 24px));
 	display: grid;
 	grid-template-columns: repeat(5, minmax(0, 1fr));
 	gap: 8px;
 	padding: 10px;
 	border-radius: 28px;
-	background: rgba(7, 12, 22, 0.82);
+	background: rgba(7, 12, 22, 0.88);
 	backdrop-filter: blur(18px);
 	box-shadow: 0 18px 44px rgba(0, 0, 0, 0.24);
+	z-index: 20;
 }
 
 .dock-item {
@@ -298,15 +364,18 @@ button {
 	justify-items: center;
 	gap: 6px;
 	cursor: pointer;
+	touch-action: manipulation;
+	transition: transform 120ms ease;
 }
 
 .dock-icon {
-	width: 40px;
-	height: 40px;
+	width: 42px;
+	height: 42px;
 	border-radius: 14px;
 	display: grid;
 	place-items: center;
 	background: rgba(255, 255, 255, 0.06);
+	font-size: 1.1rem;
 }
 
 .dock-label {
@@ -346,32 +415,35 @@ button {
 	stroke: rgba(255, 90, 207, 0.28);
 }
 
-.shape-solid {
-	fill: rgba(255, 255, 255, 0.92);
+.ship-cut {
+	fill: rgba(8, 16, 28, 0.92);
 }
 
-.shape-cut {
-	fill: rgba(8, 16, 28, 0.92);
+.wing-fill {
+	fill: rgba(214, 228, 255, 0.8);
+}
+
+.teal-wing {
+	fill: rgba(111, 241, 208, 0.66);
 }
 
 .spark {
 	fill: rgba(255, 255, 255, 0.92);
 }
 
-.boss-core {
-	fill: rgba(27, 17, 4, 0.82);
-}
-
-.boss-shell {
-	fill: rgba(255, 195, 97, 0.94);
-}
-
-.boss-horn {
+.ship-stroke {
 	fill: none;
-	stroke: rgba(255, 195, 97, 0.92);
 	stroke-width: 18;
 	stroke-linecap: round;
 	stroke-linejoin: round;
+}
+
+.warning-stroke {
+	stroke: rgba(255, 195, 97, 0.92);
+}
+
+.boss-core {
+	fill: rgba(27, 17, 4, 0.42);
 }
 
 .forge-frame {
@@ -384,14 +456,6 @@ button {
 	fill: rgba(116, 241, 211, 0.92);
 }
 
-.planet-fill {
-	fill: url(#planet-gradient);
-}
-
-.hero-svg .planet-fill {
-	fill: #46a5ff;
-}
-
 .planet-mark {
 	fill: rgba(5, 22, 44, 0.32);
 }
@@ -402,14 +466,6 @@ button {
 
 .teal-fill {
 	fill: rgba(116, 241, 211, 0.94);
-}
-
-.crown-main {
-	fill: url(#crown-grad);
-}
-
-.hero-svg .crown-main {
-	fill: #ff62d1;
 }
 
 .crown-base {
@@ -454,20 +510,39 @@ button {
 	--button-text: #08121d;
 }
 
+@keyframes burst-up {
+	0% {
+		opacity: 0;
+		transform: translate(-50%, -20%);
+	}
+	10% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+		transform: translate(-50%, -180%);
+	}
+}
+
 @media (max-width: 560px) {
+	.app-shell {
+		padding-inline: max(8px, var(--app-safe-left));
+	}
+
 	.topbar {
 		align-items: flex-start;
 		flex-direction: column;
 	}
 
 	.balance-block h1 {
-		font-size: clamp(2.4rem, 13vw, 3.7rem);
+		font-size: clamp(2.4rem, 13vw, 3.8rem);
 	}
 
 	.tap-zone {
-		min-height: 340px;
+		min-height: 360px;
 	}
 
+	.status-strip,
 	.boost-row,
 	.quick-row,
 	.design-dock {
@@ -480,6 +555,6 @@ button {
 
 	.side-badge-left,
 	.side-badge-right {
-		top: 22%;
+		top: 24%;
 	}
 }
