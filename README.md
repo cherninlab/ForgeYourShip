@@ -1,6 +1,6 @@
-# Starship Forge
+# Astroship
 
-This repository stores the core product and design documentation for **Starship Forge**, a Telegram-first spaceship progression and social competition game.
+This repository stores the core product and design documentation for **Astroship**, a Telegram-first spaceship progression and social competition game.
 
 This is a **documentation repository**, not an open-source game implementation. The current focus is defining the product vision, systems, player fantasy, progression model, social loops, and live-service direction before building the game itself.
 
@@ -15,10 +15,11 @@ This is a **documentation repository**, not an open-source game implementation. 
 - [Documentation Index](/E:/CODEX/ForgeYourShip/docs/README.md)
 - [Game Design Document](/E:/CODEX/ForgeYourShip/docs/game-design-document.md)
 - [Repository Scope](/E:/CODEX/ForgeYourShip/docs/repository-scope.md)
+- [Telegram Mini App Setup](/E:/CODEX/ForgeYourShip/docs/telegram-mini-app-setup.md)
 
 ## Important Licensing Note
 
-**Starship Forge is proprietary and not open source.**
+**Astroship is proprietary and not open source.**
 
 Unless explicitly stated otherwise in a separate written agreement, all materials in this repository, including design documents, concepts, mechanics, narrative framing, and any future assets or code, are confidential proprietary work.
 

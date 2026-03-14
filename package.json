@@ -1,8 +1,8 @@
 {
-	"name": "multiplayer-globe-template",
-	"description": "Display website visitor locations in real-time using Durable Objects and PartyKit.",
+	"name": "astroship",
+	"description": "Astroship Telegram Mini App workspace and prototype.",
 	"cloudflare": {
-		"label": "Multiplayer Globe App",
+		"label": "Astroship",
 		"products": [
 			"Workers",
 			"Durable Objects"
@@ -20,9 +20,11 @@
 		"react-dom": "^18.0.0"
 	},
 	"devDependencies": {
+		"@playwright/test": "^1.52.0",
 		"@types/react": "^18.0.0",
 		"@types/react-dom": "^18.0.0",
 		"esbuild": "0.27.0",
+		"playwright": "1.58.2",
 		"typescript": "5.9.3",
 		"wrangler": "4.56.0"
 	},
@@ -31,7 +33,8 @@
 		"cf-typegen": "wrangler types ./src/server/worker-configuration.d.ts",
 		"check": "tsc --project src/client && tsc --project src/server && wrangler deploy --dry-run",
 		"deploy": "wrangler deploy",
-		"dev": "wrangler dev"
+		"dev": "wrangler dev",
+		"test:e2e": "playwright test"
 	},
 	"packageManager": "pnpm@9.14.2+sha512.6e2baf77d06b9362294152c851c4f278ede37ab1eba3a55fda317a4a17b209f4dbb973fb250a77abc463a341fcb1f17f17cfa24091c4eb319cda0d9b84278387"
 }

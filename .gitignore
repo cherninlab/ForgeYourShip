@@ -197,3 +197,12 @@ dist
 !.env.example
 .dev.vars*
 !.dev.vars.example
+test-results/
+playwright-report/
+# local development artifacts
+.deno/
+output/
+temp-actions.json
+progress.md
+wrangler-dev.out.log
+wrangler-dev.err.log

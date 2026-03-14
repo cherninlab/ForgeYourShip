@@ -1,6 +1,6 @@
 # Game Design Document
 
-## Working Title: Starship Forge
+## Working Title: Astroship
 
 Telegram spaceship progression, customization, and social competition game.
 
@@ -8,11 +8,11 @@ Telegram spaceship progression, customization, and social competition game.
 
 **This document is proprietary and not open source.**
 
-It is intended for internal planning, alignment, and production preparation for the Starship Forge project.
+It is intended for internal planning, alignment, and production preparation for the Astroship project.
 
 ## 1. Executive Summary
 
-**Starship Forge** is a Telegram-first live-service spaceship progression game built around a simple but powerful fantasy:
+**Astroship** is a Telegram-first live-service spaceship progression game built around a simple but powerful fantasy:
 
 **Every upgrade physically transforms your ship.**
 
@@ -1390,7 +1390,7 @@ When in doubt, prioritize the following:
 
 ## 37. One-Sentence Product Definition
 
-**Starship Forge is a Telegram live-service spaceship progression game where every upgrade visibly transforms your ship, your cockpit, and your social identity in a shared competitive galaxy.**
+**Astroship is a Telegram live-service spaceship progression game where every upgrade visibly transforms your ship, your cockpit, and your social identity in a shared competitive galaxy.**
 
 ## 38. Final Creative Benchmark
 

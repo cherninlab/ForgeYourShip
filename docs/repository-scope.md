@@ -2,7 +2,7 @@
 
 ## What This Repository Is
 
-This repository exists to hold the planning and design documentation for **Starship Forge**.
+This repository exists to hold the planning and design documentation for **Astroship**.
 
 Its current purpose is to document:
 
@@ -36,6 +36,6 @@ That means the priority is:
 
 ## Proprietary Status
 
-**Starship Forge is proprietary.**
+**Astroship is proprietary.**
 
 The design materials in this repository are not open source and should be treated as private product documentation unless the project owner explicitly publishes a different license later.
