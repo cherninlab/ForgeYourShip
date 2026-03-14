@@ -1,15 +1,15 @@
-﻿:root {
+:root {
 	color-scheme: dark;
 	font-family: Inter, "Segoe UI", system-ui, sans-serif;
-	--bg-a: #061423;
-	--bg-b: #040813;
+	--bg-a: #08121f;
+	--bg-b: #040812;
 	--phone: rgba(10, 16, 28, 0.9);
 	--text: #f5f8ff;
 	--muted: rgba(222, 231, 255, 0.66);
 	--accent: #76dcff;
-	--accent-2: #9e7eff;
-	--button-text: #07111b;
-	--shadow: 0 34px 90px rgba(0, 0, 0, 0.35);
+	--accent-2: #8c7aff;
+	--button-text: #08111b;
+	--shadow: 0 30px 90px rgba(0, 0, 0, 0.34);
 	--app-height: 100vh;
 	--app-safe-top: 0px;
 	--app-safe-bottom: 0px;
@@ -32,8 +32,8 @@ body {
 	font-family: Inter, "Segoe UI", system-ui, sans-serif;
 	color: var(--text);
 	background:
-		radial-gradient(circle at 18% 10%, color-mix(in oklab, var(--accent) 20%, transparent), transparent 28%),
-		radial-gradient(circle at 82% 0%, color-mix(in oklab, var(--accent-2) 20%, transparent), transparent 30%),
+		radial-gradient(circle at 16% 8%, color-mix(in oklab, var(--accent) 20%, transparent), transparent 26%),
+		radial-gradient(circle at 84% 0%, color-mix(in oklab, var(--accent-2) 18%, transparent), transparent 28%),
 		linear-gradient(180deg, var(--bg-a), var(--bg-b));
 	overflow-x: hidden;
 }
@@ -52,7 +52,7 @@ button {
 }
 
 .top-safe-area {
-	height: calc(48px + var(--app-safe-top));
+	height: calc(32px + var(--app-safe-top));
 }
 
 .screen-wrap {
@@ -65,7 +65,7 @@ button {
 	padding: 14px 14px 18px;
 	border-radius: 34px;
 	background:
-		linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.015)),
+		linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.015)),
 		var(--phone);
 	box-shadow: var(--shadow);
 	overflow: clip;
@@ -81,25 +81,21 @@ button {
 }
 
 .phone-shell::before {
-	inset: -10% auto auto -10%;
+	inset: -12% auto auto -12%;
 	width: 220px;
 	height: 220px;
-	background: radial-gradient(circle, color-mix(in oklab, var(--accent) 26%, transparent), transparent 68%);
+	background: radial-gradient(circle, color-mix(in oklab, var(--accent) 24%, transparent), transparent 66%);
 }
 
 .phone-shell::after {
-	inset: auto -18% 8% auto;
+	inset: auto -16% 10% auto;
 	width: 220px;
 	height: 220px;
-	background: radial-gradient(circle, color-mix(in oklab, var(--accent-2) 24%, transparent), transparent 68%);
+	background: radial-gradient(circle, color-mix(in oklab, var(--accent-2) 22%, transparent), transparent 68%);
 }
 
 .topbar,
-.balance-block,
-.status-strip,
-.tap-zone,
-.boost-row,
-.quick-row {
+.screen {
 	position: relative;
 	z-index: 1;
 }
@@ -107,8 +103,8 @@ button {
 .topbar {
 	display: flex;
 	justify-content: space-between;
-	align-items: center;
-	gap: 10px;
+	align-items: flex-start;
+	gap: 12px;
 }
 
 .profile-pill {
@@ -135,14 +131,19 @@ button {
 	display: grid;
 	justify-items: end;
 	gap: 4px;
-	font-size: 0.8rem;
+	font-size: 0.78rem;
 	color: var(--muted);
+	text-align: right;
 }
 
 .tiny-label,
 .status-pill span,
 .boost-pill span,
 .quick-card span,
+.loot-card span,
+.blueprint-card span,
+.raid-card span,
+.clan-chip span,
 .dock-label {
 	text-transform: uppercase;
 	letter-spacing: 0.14em;
@@ -150,23 +151,42 @@ button {
 	color: var(--muted);
 }
 
-.balance-block {
-	padding: 14px 2px 6px;
+.screen {
+	padding-top: 12px;
+	padding-bottom: 82px;
+}
+
+.balance-block,
+.forge-header,
+.raid-header,
+.clan-banner,
+.boss-stage-copy {
 	text-align: center;
 }
 
-.balance-block p {
+.balance-block p,
+.forge-header p,
+.raid-header p,
+.clan-banner p,
+.boss-stage-copy p {
 	margin: 0;
 }
 
-.balance-block h1 {
-	margin: 10px 0 10px;
-	font-size: clamp(2.7rem, 12vw, 4.1rem);
-	line-height: 0.88;
+.balance-block h1,
+.forge-header h1,
+.raid-header h1,
+.clan-banner h1,
+.boss-stage-copy h1 {
+	margin: 8px 0 8px;
+	font-size: clamp(2.45rem, 11vw, 3.7rem);
+	line-height: 0.9;
 	letter-spacing: -0.06em;
 }
 
-.income-pill {
+.income-pill,
+.boss-timer,
+.forge-meter-card,
+.clan-medal {
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
@@ -185,42 +205,38 @@ button {
 
 .status-pill,
 .boost-pill,
-.quick-card {
-	border-radius: 16px;
+.quick-card,
+.action-card,
+.loot-card,
+.blueprint-card,
+.raid-card,
+.clan-chip,
+.boss-header-card,
+.forge-node-card {
+	border-radius: 18px;
 	background: rgba(255, 255, 255, 0.05);
 }
 
-.status-pill {
-	padding: 10px 8px;
+.status-pill,
+.quick-card,
+.loot-card,
+.clan-chip {
+	padding: 11px 9px;
 	text-align: center;
 }
 
 .status-pill strong,
 .boost-pill strong,
-.quick-card strong {
+.quick-card strong,
+.action-card strong,
+.loot-card strong,
+.blueprint-card strong,
+.raid-card strong,
+.clan-chip strong,
+.forge-node-card strong {
 	display: block;
 	margin-top: 6px;
 	font-size: 0.98rem;
-}
-
-.tap-zone {
-	position: relative;
-	min-height: 320px;
-	display: grid;
-	place-items: center;
-	margin-top: 6px;
-}
-
-.tap-aura {
-	position: absolute;
-	inset: 50% auto auto 50%;
-	width: 280px;
-	height: 280px;
-	transform: translate(-50%, -50%);
-	border-radius: 50%;
-	background:
-		radial-gradient(circle, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.02) 48%, transparent 76%),
-		radial-gradient(circle, color-mix(in oklab, var(--accent) 18%, transparent), transparent 64%);
 }
 
 .tap-button {
@@ -234,30 +250,76 @@ button {
 	transition: transform 120ms ease;
 }
 
-.tap-button:active {
-	transform: scale(0.965);
+.tap-button:active,
+.boost-pill:active,
+.action-card:active,
+.dock-item:active {
+	transform: scale(0.975);
 }
 
-.hero-svg {
-	width: min(304px, 76vw);
-	height: auto;
-	filter: drop-shadow(0 20px 60px rgba(0, 0, 0, 0.35));
-}
-
-.tap-core-copy {
+.tap-aura,
+.bridge-hero::before,
+.boss-stage::before,
+.forge-stage::before,
+.raid-map-card::before,
+.clan-stage::before {
 	position: absolute;
-	bottom: 0;
-	left: 50%;
-	transform: translateX(-50%);
-	display: grid;
-	justify-items: center;
-	gap: 4px;
+	content: "";
+	inset: 50% auto auto 50%;
+	transform: translate(-50%, -50%);
+	border-radius: 50%;
 	pointer-events: none;
 }
 
-.tap-core-copy strong {
-	font-size: 1.45rem;
-	letter-spacing: 0.2em;
+.tap-aura,
+.bridge-hero::before {
+	width: 276px;
+	height: 276px;
+	background:
+		radial-gradient(circle, rgba(255, 255, 255, 0.11), rgba(255, 255, 255, 0.02) 46%, transparent 74%),
+		radial-gradient(circle, color-mix(in oklab, var(--accent) 18%, transparent), transparent 62%);
+}
+
+.hero-svg {
+	width: min(252px, 66vw);
+	height: auto;
+	filter: drop-shadow(0 20px 56px rgba(0, 0, 0, 0.34));
+}
+
+.bridge-hero,
+.boss-stage,
+.forge-stage,
+.raid-map-card,
+.clan-stage {
+	position: relative;
+	min-height: 244px;
+	margin-top: 10px;
+	overflow: clip;
+}
+
+.bridge-hero {
+	display: grid;
+	place-items: center;
+}
+
+.hero-copy {
+	margin-top: 0;
+	text-align: center;
+}
+
+.hero-copy strong {
+	font-size: 1.28rem;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+}
+
+.hero-copy p,
+.blueprint-card p,
+.raid-card p {
+	margin: 4px 0 0;
+	color: var(--muted);
+	font-size: 0.84rem;
+	line-height: 1.35;
 }
 
 .side-badge {
@@ -282,7 +344,7 @@ button {
 
 .side-badge-bottom {
 	left: 50%;
-	bottom: 48px;
+	bottom: 22px;
 	transform: translateX(-50%);
 }
 
@@ -295,46 +357,404 @@ button {
 	text-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
 	animation: burst-up 650ms ease forwards;
 	pointer-events: none;
+	z-index: 2;
 }
 
-.boost-row {
+.boost-row,
+.quick-row,
+.boss-actions,
+.loot-strip,
+.forge-actions,
+.raid-footer-grid,
+.clan-actions {
 	display: grid;
 	grid-template-columns: repeat(3, minmax(0, 1fr));
 	gap: 8px;
 	margin-top: 8px;
 }
 
-.boost-pill {
+.bridge-task-bar {
+	margin-top: 8px;
+	padding: 11px 14px;
+	border-radius: 18px;
+	background: rgba(255, 255, 255, 0.05);
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 10px;
+}
+
+.bridge-task-bar strong {
+	font-size: 0.95rem;
+}
+
+.bridge-task-bar span:last-child {
+	color: var(--muted);
+	font-size: 0.84rem;
+}
+
+.boost-pill,
+.action-card {
 	border: none;
-	padding: 12px 8px;
-	color: var(--text);
-	display: grid;
-	justify-items: center;
-	gap: 6px;
-	cursor: pointer;
-	touch-action: manipulation;
-}
-
-.boost-pill:active,
-.quick-card:active,
-.dock-item:active {
-	transform: scale(0.98);
-}
-
-.quick-row {
-	display: grid;
-	grid-template-columns: repeat(3, minmax(0, 1fr));
-	gap: 8px;
-	margin-top: 8px;
-}
-
-.quick-card {
 	padding: 10px 8px;
+	color: var(--text);
+}
+
+.action-card {
+	grid-column: span 1;
 	text-align: center;
 }
 
-.quick-card.active {
-	background: linear-gradient(180deg, color-mix(in oklab, var(--accent) 16%, transparent), rgba(255, 255, 255, 0.04));
+.action-card-primary,
+.quick-card.active,
+.blueprint-card.active,
+.raid-card.active {
+	background: linear-gradient(180deg, color-mix(in oklab, var(--accent) 18%, transparent), rgba(255, 255, 255, 0.04));
+}
+
+.boss-header-card {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 10px;
+	padding: 12px 14px;
+}
+
+.boss-header-card strong {
+	display: block;
+	margin-top: 4px;
+	font-size: 1rem;
+}
+
+.hp-track {
+	margin-top: 8px;
+	height: 10px;
+	border-radius: 999px;
+	background: rgba(255, 255, 255, 0.08);
+	overflow: hidden;
+}
+
+.hp-fill {
+	display: block;
+	height: 100%;
+	border-radius: inherit;
+	background: linear-gradient(90deg, #ffd86c, #ff8a3d);
+}
+
+.boss-stage {
+	display: grid;
+	grid-template-rows: auto 1fr auto;
+	padding: 8px 0 0;
+	min-height: 220px;
+}
+
+.boss-stage::before {
+	width: 288px;
+	height: 288px;
+	background: radial-gradient(circle, rgba(255, 178, 85, 0.2), transparent 68%);
+}
+
+.boss-stage-copy .income-pill {
+	margin-top: 2px;
+}
+
+.boss-tap-button {
+	justify-self: center;
+}
+
+.boss-blast {
+	position: absolute;
+	top: 52%;
+	width: 54px;
+	height: 6px;
+	border-radius: 999px;
+	background: linear-gradient(90deg, rgba(255, 196, 100, 0), rgba(255, 196, 100, 0.92));
+	filter: blur(1px);
+}
+
+.boss-blast-left {
+	left: -18px;
+	transform: rotate(-18deg);
+}
+
+.boss-blast-right {
+	right: -18px;
+	transform: scaleX(-1) rotate(-18deg);
+}
+
+.boss-markers {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: 8px;
+	margin-top: -18px;
+}
+
+.hero-svg-boss {
+	width: min(220px, 58vw);
+}
+
+.boss-reward-line {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: 8px;
+	margin-top: 8px;
+}
+
+.boss-reward-chip {
+	padding: 9px 8px;
+	border-radius: 16px;
+	background: rgba(255, 255, 255, 0.05);
+	text-align: center;
+}
+
+.boss-reward-chip strong {
+	display: block;
+	margin-top: 4px;
+	font-size: 0.9rem;
+}
+
+.forge-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 10px;
+	text-align: left;
+}
+
+.forge-meter-card {
+	padding-inline: 13px;
+}
+
+.forge-stage {
+	border-radius: 28px;
+	margin-top: 10px;
+	background: linear-gradient(180deg, rgba(116, 241, 211, 0.08), rgba(255, 255, 255, 0.02));
+}
+
+.forge-stage::before {
+	width: 248px;
+	height: 248px;
+	background: radial-gradient(circle, rgba(116, 241, 211, 0.18), transparent 68%);
+}
+
+.forge-tap-button {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -48%);
+}
+
+.forge-node-card {
+	position: absolute;
+	padding: 9px 10px;
+	text-align: center;
+	min-width: 74px;
+}
+
+.forge-node-card span {
+	display: block;
+	font-size: 0.72rem;
+	color: var(--muted);
+	text-transform: uppercase;
+	letter-spacing: 0.12em;
+}
+
+.forge-node-card-top {
+	left: 50%;
+	top: 10px;
+	transform: translateX(-50%);
+}
+
+.forge-node-card-left {
+	left: 10px;
+	top: 92px;
+}
+
+.forge-node-card-right {
+	right: 10px;
+	top: 92px;
+}
+
+.forge-base {
+	position: absolute;
+	left: 50%;
+	bottom: 18px;
+	transform: translateX(-50%);
+	padding: 8px 12px;
+	border-radius: 999px;
+	background: rgba(255, 255, 255, 0.06);
+	color: var(--muted);
+}
+
+.forge-blueprints {
+	display: grid;
+	grid-template-columns: 1.15fr 0.85fr;
+	gap: 8px;
+	margin-top: 8px;
+}
+
+.blueprint-card {
+	padding: 10px;
+}
+
+.forge-actions,
+.clan-actions {
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.raid-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: end;
+	gap: 10px;
+	text-align: left;
+}
+
+.raid-map-card {
+	padding: 8px 10px;
+	border-radius: 28px;
+	background: linear-gradient(180deg, rgba(111, 241, 208, 0.08), rgba(255, 255, 255, 0.02));
+}
+
+.raid-map-card::before {
+	width: 258px;
+	height: 258px;
+	background: radial-gradient(circle, rgba(83, 168, 255, 0.2), transparent 68%);
+}
+
+.route-line {
+	position: absolute;
+	left: 50%;
+	top: 22px;
+	bottom: 30px;
+	width: 2px;
+	transform: translateX(-50%);
+	background: linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.02));
+}
+
+.route-node {
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+	min-width: 84px;
+	padding: 7px 9px;
+	border-radius: 16px;
+	background: rgba(9, 16, 28, 0.64);
+	text-align: center;
+}
+
+.route-node span {
+	display: block;
+	font-size: 0.7rem;
+	color: var(--muted);
+	text-transform: uppercase;
+	letter-spacing: 0.12em;
+}
+
+.route-node-top {
+	top: 10px;
+}
+
+.route-node-mid {
+	top: 72px;
+}
+
+.route-node-bottom {
+	bottom: 16px;
+}
+
+.raid-tap-button {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -40%);
+}
+
+.route-streak,
+.clan-streak {
+	position: absolute;
+	left: 50%;
+	bottom: 52px;
+	transform: translateX(-50%);
+	padding: 8px 12px;
+	border-radius: 999px;
+	background: rgba(255, 255, 255, 0.06);
+	color: var(--muted);
+}
+
+.raid-footer-grid {
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.raid-card {
+	padding: 10px;
+}
+
+.clan-banner {
+	display: flex;
+	justify-content: space-between;
+	align-items: end;
+	gap: 10px;
+	text-align: left;
+}
+
+.clan-medal {
+	min-width: 54px;
+	font-weight: 700;
+}
+
+.clan-stage {
+	margin-top: 10px;
+	border-radius: 30px;
+	background: linear-gradient(180deg, rgba(255, 93, 208, 0.08), rgba(255, 255, 255, 0.02));
+	display: grid;
+	place-items: center;
+}
+
+.clan-stage::before {
+	width: 272px;
+	height: 272px;
+	background: radial-gradient(circle, rgba(255, 93, 208, 0.16), transparent 66%);
+}
+
+.clan-pedestal {
+	position: absolute;
+	left: 50%;
+	bottom: 42px;
+	width: 168px;
+	height: 20px;
+	transform: translateX(-50%);
+	border-radius: 999px;
+	background: linear-gradient(90deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.03));
+	filter: blur(1px);
+}
+
+.clan-tap-button {
+	position: relative;
+	top: -8px;
+}
+
+.clan-tribute {
+	position: absolute;
+	left: 50%;
+	top: 10px;
+	transform: translateX(-50%);
+	padding: 8px 12px;
+	border-radius: 18px;
+	background: rgba(255, 255, 255, 0.05);
+	text-align: center;
+}
+
+.clan-tribute strong {
+	display: block;
+	margin-top: 4px;
+}
+
+.clan-rail {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: 8px;
+	margin-top: 10px;
 }
 
 .design-dock {
@@ -346,7 +766,7 @@ button {
 	display: flex;
 	justify-content: space-between;
 	gap: 2px;
-	padding: 8px 10px;
+	padding: 7px 10px;
 	border-radius: 22px;
 	background: rgba(7, 12, 22, 0.92);
 	backdrop-filter: blur(18px);
@@ -358,7 +778,7 @@ button {
 	flex: 1 1 0;
 	border: none;
 	border-radius: 16px;
-	padding: 8px 2px 6px;
+	padding: 7px 2px 5px;
 	background: transparent;
 	color: var(--text);
 	display: flex;
@@ -371,8 +791,8 @@ button {
 }
 
 .dock-icon {
-	width: 34px;
-	height: 34px;
+	width: 32px;
+	height: 32px;
 	border-radius: 12px;
 	display: grid;
 	place-items: center;
@@ -407,15 +827,15 @@ button {
 }
 
 .ring-line.warning {
-	stroke: rgba(255, 194, 95, 0.3);
+	stroke: rgba(255, 194, 95, 0.34);
 }
 
 .ring-line.teal {
-	stroke: rgba(114, 240, 208, 0.28);
+	stroke: rgba(114, 240, 208, 0.3);
 }
 
 .ring-line.pink {
-	stroke: rgba(255, 90, 207, 0.28);
+	stroke: rgba(255, 90, 207, 0.3);
 }
 
 .ship-cut {
@@ -459,22 +879,6 @@ button {
 	fill: rgba(116, 241, 211, 0.92);
 }
 
-.planet-mark {
-	fill: rgba(5, 22, 44, 0.32);
-}
-
-.planet-mark.soft {
-	fill: rgba(217, 255, 247, 0.2);
-}
-
-.teal-fill {
-	fill: rgba(116, 241, 211, 0.94);
-}
-
-.crown-base {
-	fill: rgba(255, 255, 255, 0.92);
-}
-
 .pink-fill {
 	fill: rgba(255, 90, 207, 0.95);
 }
@@ -485,29 +889,38 @@ button {
 }
 
 .theme-v2 {
-	--bg-a: #16120a;
-	--bg-b: #0a0704;
-	--phone: rgba(25, 19, 10, 0.9);
-	--text: #fff7ea;
-	--muted: rgba(255, 239, 208, 0.68);
-	--accent: #ffc663;
-	--accent-2: #ff7d2b;
+	--bg-a: #171108;
+	--bg-b: #0b0804;
+	--phone: rgba(24, 18, 10, 0.9);
+	--text: #fff8ee;
+	--muted: rgba(255, 239, 208, 0.7);
+	--accent: #ffcb68;
+	--accent-2: #ff8a3d;
 	--button-text: #1d1102;
 }
 
 .theme-v3 {
+	--bg-a: #071615;
+	--bg-b: #04100f;
+	--phone: rgba(8, 22, 21, 0.9);
 	--accent: #74f1d3;
 	--accent-2: #58d5ff;
 	--button-text: #051513;
 }
 
 .theme-v4 {
+	--bg-a: #071421;
+	--bg-b: #04101a;
+	--phone: rgba(8, 18, 28, 0.9);
 	--accent: #6ff1cb;
 	--accent-2: #53a8ff;
 	--button-text: #06161a;
 }
 
 .theme-v5 {
+	--bg-a: #111121;
+	--bg-b: #090713;
+	--phone: rgba(16, 14, 28, 0.9);
 	--accent: #7dd7ff;
 	--accent-2: #ff5dd0;
 	--button-text: #08121d;
@@ -533,21 +946,17 @@ button {
 	}
 
 	.topbar {
-		align-items: flex-start;
 		flex-direction: column;
 	}
 
-	.status-strip,
-	.boost-row,
-	.quick-row {
-		grid-template-columns: repeat(3, minmax(0, 1fr));
-	}
-
-	.tap-zone {
-		min-height: 300px;
+	.forge-header,
+	.raid-header,
+	.clan-banner {
+		grid-template-columns: 1fr;
+		display: grid;
 	}
 
 	.hero-svg {
-		width: min(280px, 72vw);
+		width: min(236px, 66vw);
 	}
 }
