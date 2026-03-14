@@ -34,22 +34,22 @@ test.beforeEach(async ({ page }) => {
 	});
 });
 
-test("boots with version selector and Telegram Mini App context", async ({ page }) => {
+test("boots into game-first home UI with bottom design dock", async ({ page }) => {
 	await page.goto("/");
 
-	await expect(page.getByRole("heading", { name: "Five actually different first-page directions." })).toBeVisible();
-	await expect(page.getByLabel("Runtime information").getByText("astroship_dev")).toBeVisible();
-	await expect(page.getByText("start: playwright")).toBeVisible();
-	await expect(page.getByRole("tab", { name: /Version 01/i })).toHaveAttribute("aria-selected", "true");
-	await expect(page.getByRole("heading", { name: /Open Astroship like a cinematic mission briefing/i })).toBeVisible();
+	await expect(page.locator(".top-safe-area")).toBeVisible();
+	await expect(page.locator(".top-safe-area")).toHaveCSS("height", /100px|1\d\dpx/);
+	await expect(page.getByText("Charge the flagship and launch your first run.")).toBeVisible();
+	await expect(page.getByText("astroship_dev")).toBeVisible();
+	await expect(page.getByRole("tab", { name: /Fleet Tap/i })).toHaveAttribute("aria-selected", "true");
+	await expect(page.locator(".design-dock")).toBeVisible();
 });
 
-test("switches to another landing page version", async ({ page }) => {
+test("switches concepts from the bottom dock", async ({ page }) => {
 	await page.goto("/");
 
-	await page.getByRole("tab", { name: /Version 05/i }).click();
-	await expect(page.getByRole("tab", { name: /Version 05/i })).toHaveAttribute("aria-selected", "true");
-	await expect(page.getByRole("heading", { name: /Launch the game like an event drop/i })).toBeVisible();
-	await expect(page.getByText("Season zero opens")).toBeVisible();
+	await page.getByRole("tab", { name: /Clan Throne/i }).click();
+	await expect(page.getByRole("tab", { name: /Clan Throne/i })).toHaveAttribute("aria-selected", "true");
+	await expect(page.getByText("Turn the home screen into a social power fantasy.")).toBeVisible();
+	await expect(page.getByRole("button", { name: /Claim throne/i })).toBeVisible();
 });
-

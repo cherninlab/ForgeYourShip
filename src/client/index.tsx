@@ -9,448 +9,193 @@ type VersionId = "v1" | "v2" | "v3" | "v4" | "v5";
 
 type VersionDefinition = {
 	id: VersionId;
-	label: string;
 	name: string;
-	signature: string;
-	summary: string;
+	icon: string;
+	title: string;
+	subtitle: string;
+	primaryAction: string;
+	secondaryAction: string;
+	stats: Array<{ label: string; value: string }>;
+	chips: string[];
 };
 
 const versions: VersionDefinition[] = [
 	{
 		id: "v1",
-		label: "Version 01",
-		name: "Mission Brief",
-		signature: "Narrative hero",
-		summary: "Story-led onboarding with readiness steps and a premium launch moment.",
+		name: "Fleet Tap",
+		icon: "⚡",
+		title: "Charge the flagship and launch your first run.",
+		subtitle: "Big hero energy, clear tap target, instant progression feel.",
+		primaryAction: "Start run",
+		secondaryAction: "Upgrade ship",
+		stats: [
+			{ label: "Power", value: "4.2M" },
+			{ label: "Combo", value: "x18" },
+			{ label: "Boosters", value: "3 ready" },
+		],
+		chips: ["Tap core", "Loot burst", "Fast rewards"],
 	},
 	{
 		id: "v2",
-		label: "Version 02",
-		name: "Command Deck",
-		signature: "Tactical dashboard",
-		summary: "An operator UI with side rails, system modules, and scan-first hierarchy.",
+		name: "Boss Arena",
+		icon: "☄",
+		title: "Jump straight into a boss fight home screen.",
+		subtitle: "Feels competitive first, with target pressure and damage loops.",
+		primaryAction: "Attack boss",
+		secondaryAction: "Load skills",
+		stats: [
+			{ label: "Boss HP", value: "61%" },
+			{ label: "Rank", value: "#128" },
+			{ label: "Squad", value: "4 online" },
+		],
+		chips: ["PvE loop", "Damage race", "Event timer"],
 	},
 	{
 		id: "v3",
-		label: "Version 03",
-		name: "Orbit Planner",
-		signature: "Journey builder",
-		summary: "A route-planning layout built around destinations, rewards, and travel flow.",
+		name: "Hangar Forge",
+		icon: "🛠",
+		title: "Make the first page feel like a living upgrade bay.",
+		subtitle: "The player sees growth, modules, and build depth before anything else.",
+		primaryAction: "Forge module",
+		secondaryAction: "Open loadout",
+		stats: [
+			{ label: "Tier", value: "Mk IV" },
+			{ label: "Slots", value: "6 active" },
+			{ label: "Queue", value: "2 forging" },
+		],
+		chips: ["Buildcraft", "Upgrades", "Module chase"],
 	},
 	{
 		id: "v4",
-		label: "Version 04",
-		name: "Captain Concierge",
-		signature: "Conversational onboarding",
-		summary: "A guided first page that feels like a premium assistant inside Telegram.",
+		name: "Galaxy Raid",
+		icon: "🌍",
+		title: "Open on a raid planet with a destination to conquer.",
+		subtitle: "Map-first design makes the game feel alive and event-driven.",
+		primaryAction: "Raid planet",
+		secondaryAction: "Scout routes",
+		stats: [
+			{ label: "Sector", value: "D-09" },
+			{ label: "Raiders", value: "286" },
+			{ label: "Time", value: "22m left" },
+		],
+		chips: ["Map fantasy", "Event zone", "Co-op pressure"],
 	},
 	{
 		id: "v5",
-		label: "Version 05",
-		name: "Season Zero Drop",
-		signature: "Live-event storefront",
-		summary: "A launch-day experience with countdowns, reward track, and social proof.",
+		name: "Clan Throne",
+		icon: "👑",
+		title: "Turn the home screen into a social power fantasy.",
+		subtitle: "Prestige, clan status, and season rewards dominate the first impression.",
+		primaryAction: "Claim throne",
+		secondaryAction: "Open clan",
+		stats: [
+			{ label: "Clan rank", value: "Diamond" },
+			{ label: "Season", value: "Zero" },
+			{ label: "Tribute", value: "Ready" },
+		],
+		chips: ["Social flex", "Season loop", "Guild status"],
 	},
 ];
 
-function PlaceholderArt({
-	title,
-	caption,
-	eyebrow = "Illustration area",
-	className = "",
-}: {
-	title: string;
-	caption: string;
-	eyebrow?: string;
-	className?: string;
-}) {
-	return (
-		<div className={`art-placeholder ${className}`.trim()}>
-			<div className="art-grid" aria-hidden="true" />
-			<div className="art-glow art-glow-a" aria-hidden="true" />
-			<div className="art-glow art-glow-b" aria-hidden="true" />
-			<div className="art-frame">
-				<p className="section-tag">{eyebrow}</p>
-				<strong>{title}</strong>
-				<p>{caption}</p>
-			</div>
-		</div>
-	);
+function GameArt({ version }: { version: VersionDefinition }) {
+	switch (version.id) {
+		case "v1":
+			return (
+				<svg viewBox="0 0 620 620" className="hero-svg hero-svg-v1" aria-hidden="true">
+					<defs>
+						<radialGradient id="v1-core" cx="50%" cy="50%" r="50%">
+							<stop offset="0%" stopColor="#ffffff" stopOpacity="0.96" />
+							<stop offset="28%" stopColor="#9ae7ff" stopOpacity="0.95" />
+							<stop offset="62%" stopColor="#4bb8ff" stopOpacity="0.34" />
+							<stop offset="100%" stopColor="#4bb8ff" stopOpacity="0" />
+						</radialGradient>
+					</defs>
+					<circle cx="310" cy="310" r="220" className="orbit-line" />
+					<circle cx="310" cy="310" r="168" className="orbit-line faint" />
+					<circle cx="310" cy="310" r="94" fill="url(#v1-core)" />
+					<path d="M160 325 L310 118 L460 325 L310 515 Z" className="ship-solid" />
+					<path d="M205 324 L310 182 L415 324 L310 460 Z" className="ship-cut" />
+					<circle cx="178" cy="228" r="11" className="spark" />
+					<circle cx="451" cy="257" r="9" className="spark" />
+					<circle cx="227" cy="468" r="13" className="spark" />
+				</svg>
+			);
+		case "v2":
+			return (
+				<svg viewBox="0 0 620 620" className="hero-svg hero-svg-v2" aria-hidden="true">
+					<defs>
+						<radialGradient id="v2-glow" cx="50%" cy="50%" r="50%">
+							<stop offset="0%" stopColor="#ffd97a" stopOpacity="0.95" />
+							<stop offset="45%" stopColor="#ffb24a" stopOpacity="0.45" />
+							<stop offset="100%" stopColor="#ff7e2d" stopOpacity="0" />
+						</radialGradient>
+					</defs>
+					<circle cx="310" cy="310" r="205" fill="none" className="orbit-line warning" />
+					<circle cx="310" cy="310" r="126" fill="url(#v2-glow)" />
+					<circle cx="310" cy="310" r="106" className="boss-core" />
+					<path d="M245 240 L375 240 L420 310 L375 380 L245 380 L200 310 Z" className="boss-shell" />
+					<path d="M248 204 L310 150 L372 204" className="boss-horn" />
+					<path d="M248 416 L310 470 L372 416" className="boss-horn" />
+					<circle cx="270" cy="310" r="14" className="spark" />
+					<circle cx="350" cy="310" r="14" className="spark" />
+				</svg>
+			);
+		case "v3":
+			return (
+				<svg viewBox="0 0 620 620" className="hero-svg hero-svg-v3" aria-hidden="true">
+					<rect x="160" y="140" width="300" height="340" rx="40" className="forge-frame" />
+					<rect x="215" y="190" width="190" height="240" rx="26" className="forge-inner" />
+					<path d="M230 390 L310 215 L390 390" className="ship-solid" />
+					<circle cx="310" cy="120" r="26" className="forge-node" />
+					<circle cx="475" cy="250" r="24" className="forge-node" />
+					<circle cx="475" cy="395" r="24" className="forge-node" />
+					<circle cx="145" cy="250" r="24" className="forge-node" />
+					<circle cx="145" cy="395" r="24" className="forge-node" />
+					<circle cx="310" cy="500" r="26" className="forge-node" />
+					<path d="M310 120 L310 160 M166 250 L210 250 M410 250 L454 250 M410 395 L454 395 M166 395 L210 395 M310 460 L310 500" className="forge-link" />
+				</svg>
+			);
+		case "v4":
+			return (
+				<svg viewBox="0 0 620 620" className="hero-svg hero-svg-v4" aria-hidden="true">
+					<defs>
+						<radialGradient id="planet-core" cx="35%" cy="30%" r="65%">
+							<stop offset="0%" stopColor="#d6fff1" stopOpacity="0.95" />
+							<stop offset="45%" stopColor="#66e7c2" stopOpacity="0.88" />
+							<stop offset="100%" stopColor="#2b7eff" stopOpacity="0.95" />
+						</radialGradient>
+					</defs>
+					<circle cx="310" cy="310" r="165" fill="url(#planet-core)" />
+					<ellipse cx="310" cy="310" rx="235" ry="88" className="orbit-line teal" />
+					<ellipse cx="310" cy="310" rx="210" ry="64" className="orbit-line faint teal" />
+					<path d="M220 250 C250 220, 350 215, 398 260 C360 290, 285 300, 225 278 Z" className="planet-shadow" />
+					<path d="M248 355 C294 330, 372 342, 410 388 C362 417, 292 420, 244 392 Z" className="planet-shadow soft" />
+					<circle cx="130" cy="310" r="19" className="spark teal-fill" />
+					<circle cx="488" cy="310" r="19" className="spark teal-fill" />
+				</svg>
+			);
+		case "v5":
+			return (
+				<svg viewBox="0 0 620 620" className="hero-svg hero-svg-v5" aria-hidden="true">
+					<defs>
+						<linearGradient id="crown-glow" x1="0%" y1="0%" x2="100%" y2="100%">
+							<stop offset="0%" stopColor="#8be2ff" />
+							<stop offset="100%" stopColor="#ff4ac6" />
+						</linearGradient>
+					</defs>
+					<circle cx="310" cy="300" r="208" className="orbit-line pink" />
+					<path d="M185 388 L215 215 L285 292 L310 175 L336 292 L405 215 L435 388 Z" className="crown-frame" />
+					<path d="M214 388 L240 258 L286 320 L310 234 L334 320 L380 258 L406 388 Z" fill="url(#crown-glow)" fillOpacity="0.9" />
+					<rect x="198" y="390" width="224" height="42" rx="18" className="crown-base" />
+					<circle cx="215" cy="200" r="16" className="spark pink-fill" />
+					<circle cx="310" cy="160" r="16" className="spark pink-fill" />
+					<circle cx="405" cy="200" r="16" className="spark pink-fill" />
+				</svg>
+			);
+	}
 }
 
-function IconSlots({ count = 4, compact = false }: { count?: number; compact?: boolean }) {
-	return (
-		<div
-			className={`icon-slots${compact ? " compact" : ""}`}
-			aria-label="Icon placeholders"
-		>
-			{Array.from({ length: count }).map((_, index) => (
-				<div className="icon-slot" key={index}>
-					<span>Icon</span>
-				</div>
-			))}
-		</div>
-	);
-}
-
-function MissionBrief({
-	viewer,
-	environment,
-	startParam,
-}: {
-	viewer: string;
-	environment: string;
-	startParam: string;
-}) {
-	const steps = [
-		{ title: "Choose identity", body: "Pilot alias, house style, and your visible first impression." },
-		{ title: "Preview your ship", body: "Reserve a dramatic hero visual without needing final art yet." },
-		{ title: "Launch socially", body: "Open with squad energy, leaderboard tension, and immediate momentum." },
-	];
-
-	return (
-		<section className="version-stage mission-stage">
-			<div className="mission-copy">
-				<p className="section-tag">Version 01 · Narrative hero</p>
-				<h1>Open Astroship like a cinematic mission briefing.</h1>
-				<p className="lede">
-					A bold first impression for new players: high-status copy, guided setup, and
-					a big hero zone that can later accept real illustration.
-				</p>
-				<div className="cta-row">
-					<button type="button" className="btn btn-primary">Begin enlistment</button>
-					<button type="button" className="btn btn-secondary">Watch teaser</button>
-				</div>
-				<div className="chip-list">
-					<span>Immersive story</span>
-					<span>Clear onboarding</span>
-					<span>High-status tone</span>
-				</div>
-				<div className="mission-steps">
-					{steps.map((step, index) => (
-						<article className="step-card" key={step.title}>
-							<span className="step-index">0{index + 1}</span>
-							<div>
-								<strong>{step.title}</strong>
-								<p>{step.body}</p>
-							</div>
-						</article>
-					))}
-				</div>
-			</div>
-
-			<div className="mission-side">
-				<div className="status-panel">
-					<div>
-						<span>Viewer</span>
-						<strong>{viewer}</strong>
-					</div>
-					<div>
-						<span>Runtime</span>
-						<strong>{environment}</strong>
-					</div>
-					<div>
-						<span>Entry code</span>
-						<strong>{startParam}</strong>
-					</div>
-				</div>
-				<PlaceholderArt
-					title="Hero ship key visual"
-					caption="Reserve this for a dramatic mothership illustration, cinematic nebula, or season splash."
-				/>
-				<div className="signal-card">
-					<p className="section-tag">Why it feels different</p>
-					<ul>
-						<li>Designed like a trailer poster, not a dashboard.</li>
-						<li>Uses story beats instead of modules as the main structure.</li>
-						<li>Best fit for premium first-time wow.</li>
-					</ul>
-				</div>
-			</div>
-		</section>
-	);
-}
-
-function CommandDeck({ viewer, environment }: { viewer: string; environment: string }) {
-	const systems = [
-		["Bridge readiness", "94%"],
-		["Squad signal", "online"],
-		["Shipyard queue", "3 hulls"],
-		["Live event", "14m left"],
-	];
-
-	return (
-		<section className="version-stage command-stage">
-			<aside className="command-sidebar">
-				<p className="section-tag">Version 02 · Tactical dashboard</p>
-				<h1>Make the first page feel like the captain already owns a console.</h1>
-				<nav className="command-nav" aria-label="Command sections">
-					<button type="button" className="command-nav-item active">Overview</button>
-					<button type="button" className="command-nav-item">Fleet status</button>
-					<button type="button" className="command-nav-item">Battle log</button>
-					<button type="button" className="command-nav-item">Squad comms</button>
-				</nav>
-				<div className="sidebar-meter">
-					<span>Operator</span>
-					<strong>{viewer}</strong>
-				</div>
-			</aside>
-
-			<div className="command-main">
-				<div className="command-toolbar">
-					<div>
-						<p className="section-tag">Control room</p>
-						<strong>Fast scan, sharp hierarchy, instant action.</strong>
-					</div>
-					<div className="toolbar-actions">
-						<button type="button" className="btn btn-secondary">Inspect build</button>
-						<button type="button" className="btn btn-primary">Open bridge</button>
-					</div>
-				</div>
-
-				<div className="command-board">
-					<div className="radar-display">
-						<div className="radar-core">
-							<span>Docking lane</span>
-							<strong>Sector A-17</strong>
-						</div>
-						<div className="radar-card radar-card-a">Recruit drop</div>
-						<div className="radar-card radar-card-b">PvP ladder</div>
-						<div className="radar-card radar-card-c">Alliance tasks</div>
-					</div>
-
-					<div className="systems-grid">
-						{systems.map(([label, value]) => (
-							<div className="system-tile" key={label}>
-								<span>{label}</span>
-								<strong>{value}</strong>
-							</div>
-						))}
-					</div>
-				</div>
-			</div>
-
-			<aside className="command-feed">
-				<div className="feed-card">
-					<p className="section-tag">Environment</p>
-					<strong>{environment}</strong>
-					<p>Ideal when the product should feel operational from second one.</p>
-				</div>
-				<div className="feed-card">
-					<p className="section-tag">Activity feed</p>
-					<ul className="feed-list">
-						<li>12:04 · Founder slot reopened</li>
-						<li>12:09 · Fleet slot reserved</li>
-						<li>12:13 · New squad invite waiting</li>
-					</ul>
-				</div>
-				<div className="feed-card">
-					<p className="section-tag">Utility rail</p>
-					<IconSlots compact />
-				</div>
-			</aside>
-		</section>
-	);
-}
-
-function OrbitPlanner({
-	viewer,
-	startParam,
-}: {
-	viewer: string;
-	startParam: string;
-}) {
-	const stops = [
-		{ title: "Claim origin world", body: "Select a faction fantasy before any hard commitment." },
-		{ title: "Map your launch route", body: "Preview rewards, rivals, and social momentum before entering." },
-		{ title: "Invite a wingmate", body: "Turn the very first screen into a co-op trigger, not a dead end." },
-	];
-
-	return (
-		<section className="version-stage orbit-stage">
-			<div className="orbit-headline">
-				<p className="section-tag">Version 03 · Journey builder</p>
-				<h1>Frame the first page as a destination planner, not a static hero.</h1>
-				<p className="lede">
-					This version sells the fantasy of going somewhere: destinations, travel path,
-					reward preview, and elegant route selection.
-				</p>
-			</div>
-
-			<div className="orbit-visual">
-				<div className="orbit-ring" aria-hidden="true" />
-				<div className="orbit-core-card">
-					<span>Reserved route</span>
-					<strong>Founder path</strong>
-					<small>entry: {startParam}</small>
-				</div>
-				<PlaceholderArt
-					title="Floating destination artwork"
-					caption="Use for a planet scene, orbital ship render, or layered atmospheric concept."
-					className="orbit-art"
-				/>
-			</div>
-
-			<div className="orbit-itinerary">
-				{stops.map((stop, index) => (
-					<article key={stop.title} className="itinerary-card">
-						<span className="step-index">0{index + 1}</span>
-						<div>
-							<strong>{stop.title}</strong>
-							<p>{stop.body}</p>
-						</div>
-					</article>
-				))}
-			</div>
-
-			<div className="orbit-dock">
-				<div>
-					<p className="section-tag">For {viewer}</p>
-					<strong>Ideal if Astroship should feel like a premium expedition.</strong>
-				</div>
-				<div className="cta-row">
-					<button type="button" className="btn btn-primary">Plot route</button>
-					<button type="button" className="btn btn-secondary">Review worlds</button>
-				</div>
-			</div>
-		</section>
-	);
-}
-
-function CaptainConcierge({
-	viewer,
-	environment,
-}: {
-	viewer: string;
-	environment: string;
-}) {
-	return (
-		<section className="version-stage concierge-stage">
-			<div className="concierge-header">
-				<div>
-					<p className="section-tag">Version 04 · Conversational onboarding</p>
-					<h1>Let the first page feel like a premium concierge inside Telegram.</h1>
-				</div>
-				<div className="presence-card">
-					<span>Session</span>
-					<strong>{environment}</strong>
-				</div>
-			</div>
-
-			<div className="concierge-chat">
-				<div className="chat-bubble assistant">
-					<p className="section-tag">Astra concierge</p>
-					<strong>Welcome back, {viewer}.</strong>
-					<p>I can set up your ship identity, recommend a squad, or open today’s live event.</p>
-				</div>
-				<div className="chat-bubble user">
-					<strong>I want the fastest path into the game.</strong>
-				</div>
-				<div className="chat-bubble assistant">
-					<p>I’d start with your founder identity, then jump straight into the first ranked loop.</p>
-					<div className="chip-list">
-						<span>Founder setup</span>
-						<span>Ranked intro</span>
-						<span>Join a squad</span>
-					</div>
-				</div>
-			</div>
-
-			<div className="concierge-side">
-				<div className="profile-card">
-					<p className="section-tag">Recommended for you</p>
-					<strong>Competitive social opener</strong>
-					<p>Great when the app should feel personal, guided, and instantly helpful.</p>
-				</div>
-				<PlaceholderArt
-					title="Assistant or ship portrait"
-					caption="This area can later hold an AI guide, captain portrait, or stylized ship reveal."
-				/>
-				<IconSlots compact />
-			</div>
-
-			<div className="action-sheet">
-				<div>
-					<p className="section-tag">Next actions</p>
-					<strong>Use a guided sheet instead of a classic hero CTA row.</strong>
-				</div>
-				<div className="action-sheet-buttons">
-					<button type="button" className="btn btn-primary">Get my setup</button>
-					<button type="button" className="btn btn-secondary">See squad options</button>
-					<button type="button" className="btn btn-secondary">Skip to event</button>
-				</div>
-			</div>
-		</section>
-	);
-}
-
-function SeasonZeroDrop({
-	viewer,
-	environment,
-}: {
-	viewer: string;
-	environment: string;
-}) {
-	const rewards = ["Nameplate", "Founder hull", "Signal banner", "VIP slot"];
-
-	return (
-		<section className="version-stage drop-stage">
-			<div className="drop-banner">
-				<div>
-					<p className="section-tag">Version 05 · Live-event storefront</p>
-					<h1>Launch the game like an event drop, not a plain homepage.</h1>
-					<p className="lede">
-						Countdown energy, premium bundles, reward track, and community proof — made
-						to convert attention fast while still looking high-end.
-					</p>
-				</div>
-				<div className="countdown-card">
-					<span>Season zero opens</span>
-					<strong>14 : 28 : 52</strong>
-					<small>{viewer} · {environment}</small>
-				</div>
-			</div>
-
-			<div className="drop-grid">
-				<div className="reward-track">
-					<p className="section-tag">Reward path</p>
-					{rewards.map((reward, index) => (
-						<div className="reward-row" key={reward}>
-							<span>Tier 0{index + 1}</span>
-							<strong>{reward}</strong>
-						</div>
-					))}
-				</div>
-
-				<div className="drop-visual">
-					<PlaceholderArt
-						title="Launch bundle artwork"
-						caption="Perfect slot for pack art, season poster, or flagship skin reveal."
-					/>
-				</div>
-
-				<div className="offer-column">
-					<div className="offer-card hot">
-						<p className="section-tag">Founder pack</p>
-						<strong>Best for first-session conversion</strong>
-						<p>Feature the premium edition with a strong CTA and a clean value ladder.</p>
-					</div>
-					<div className="offer-card">
-						<p className="section-tag">Proof</p>
-						<strong>2.4k pilots waiting</strong>
-						<p>Social validation is front-and-center instead of hidden below the fold.</p>
-					</div>
-					<div className="cta-column">
-						<button type="button" className="btn btn-primary">Claim founder pack</button>
-						<button type="button" className="btn btn-secondary">Compare editions</button>
-					</div>
-				</div>
-			</div>
-		</section>
-	);
-}
-
-function VersionShowcase({
+function HomeStage({
 	version,
 	viewer,
 	environment,
@@ -461,18 +206,57 @@ function VersionShowcase({
 	environment: string;
 	startParam: string;
 }) {
-	switch (version.id) {
-		case "v1":
-			return <MissionBrief viewer={viewer} environment={environment} startParam={startParam} />;
-		case "v2":
-			return <CommandDeck viewer={viewer} environment={environment} />;
-		case "v3":
-			return <OrbitPlanner viewer={viewer} startParam={startParam} />;
-		case "v4":
-			return <CaptainConcierge viewer={viewer} environment={environment} />;
-		case "v5":
-			return <SeasonZeroDrop viewer={viewer} environment={environment} />;
-	}
+	return (
+		<section className={`home-stage stage-${version.id}`}>
+			<div className="hud-row">
+				<div className="pilot-pill">
+					<div className="pilot-avatar">A</div>
+					<div>
+						<span>Pilot</span>
+						<strong>{viewer}</strong>
+					</div>
+				</div>
+
+				<div className="resource-strip" aria-label="Runtime information">
+					{version.stats.map((stat) => (
+						<div className="resource-pill" key={stat.label}>
+							<span>{stat.label}</span>
+							<strong>{stat.value}</strong>
+						</div>
+					))}
+				</div>
+			</div>
+
+			<div className="hero-zone">
+				<div className="hero-copy-block">
+					<p className="mode-kicker">{version.name}</p>
+					<h1>{version.title}</h1>
+					<p className="hero-subtitle">{version.subtitle}</p>
+					<div className="chip-row">
+						{version.chips.map((chip) => (
+							<span key={chip}>{chip}</span>
+						))}
+					</div>
+				</div>
+
+				<div className="art-zone">
+					<div className="art-backdrop" aria-hidden="true" />
+					<GameArt version={version} />
+					<div className="floating-tag floating-tag-a">{environment}</div>
+					<div className="floating-tag floating-tag-b">start: {startParam}</div>
+				</div>
+			</div>
+
+			<div className="action-row">
+				<button type="button" className="action-primary">{version.primaryAction}</button>
+				<button type="button" className="action-secondary">{version.secondaryAction}</button>
+				<div className="status-line">
+					<span>Daily rewards ready</span>
+					<strong>Claim in 1 tap</strong>
+				</div>
+			</div>
+		</section>
+	);
 }
 
 function App() {
@@ -483,9 +267,7 @@ function App() {
 
 	useEffect(() => {
 		const webApp = initTelegramMiniApp();
-		if (!webApp) {
-			return;
-		}
+		if (!webApp) return;
 
 		setEnvironment(`Telegram ${webApp.platform ?? "Mini App"}`);
 		const user = webApp.initDataUnsafe?.user;
@@ -514,72 +296,41 @@ function App() {
 				environment,
 				startParam,
 				totalVersions: versions.length,
+				coordinateSystem: "UI-only screen, top-left origin for layout",
 			});
 
-		(window as Window & {
-			advanceTime?: (ms: number) => void;
-		}).advanceTime = () => undefined;
+		(window as Window & { advanceTime?: (ms: number) => void }).advanceTime = () => undefined;
 	}, [activeVersion, currentVersion.name, environment, startParam, viewer]);
 
 	return (
 		<div className={`app-shell theme-${currentVersion.id}`}>
 			<div className="top-safe-area" aria-hidden="true" />
-			<div className="app-frame">
-				<header className="app-header">
-					<div>
-						<p className="micro-label">Astroship · UX laboratory</p>
-						<h2>Five actually different first-page directions.</h2>
-						<p className="header-copy">
-							These versions now differ by structure, interaction model, and information
-							hierarchy — not just color.
-						</p>
-					</div>
-
-					<div className="runtime-pills" aria-label="Runtime information">
-						<span>{viewer}</span>
-						<span>{environment}</span>
-						<span>start: {startParam}</span>
-					</div>
-				</header>
-
-				<section className="selector-panel">
-					<div className="selector-copy">
-						<p className="section-tag">Version selector</p>
-						<h3>Switch between five very different UI/UX concepts.</h3>
-						<p>
-							Story opener, command dashboard, route planner, concierge flow, and live
-							season drop — all in one prototype.
-						</p>
-					</div>
-
-					<div className="selector-grid" role="tablist" aria-label="Landing page versions">
-						{versions.map((version) => {
-							const isActive = version.id === activeVersion;
-							return (
-								<button
-									key={version.id}
-									type="button"
-									className={`selector-card${isActive ? " is-active" : ""}`}
-									onClick={() => setActiveVersion(version.id)}
-									role="tab"
-									aria-selected={isActive}
-								>
-									<p>{version.label}</p>
-									<strong>{version.name}</strong>
-									<span>{version.signature}</span>
-									<small>{version.summary}</small>
-								</button>
-							);
-						})}
-					</div>
-				</section>
-
-				<VersionShowcase
+			<div className="screen-wrap">
+				<HomeStage
 					version={currentVersion}
 					viewer={viewer}
 					environment={environment}
 					startParam={startParam}
 				/>
+
+				<nav className="design-dock" aria-label="Landing page versions" role="tablist">
+					{versions.map((version) => {
+						const isActive = version.id === activeVersion;
+						return (
+							<button
+								key={version.id}
+								type="button"
+								className={`dock-item${isActive ? " is-active" : ""}`}
+								onClick={() => setActiveVersion(version.id)}
+								role="tab"
+								aria-selected={isActive}
+							>
+								<span className="dock-icon">{version.icon}</span>
+								<span className="dock-label">{version.name}</span>
+							</button>
+						);
+					})}
+				</nav>
 			</div>
 		</div>
 	);
