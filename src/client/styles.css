@@ -1,15 +1,17 @@
 :root {
 	color-scheme: dark;
 	font-family: Inter, "Segoe UI", system-ui, sans-serif;
-	--bg-a: #08121f;
-	--bg-b: #040812;
-	--phone: rgba(10, 16, 28, 0.9);
-	--text: #f5f8ff;
-	--muted: rgba(222, 231, 255, 0.66);
-	--accent: #76dcff;
-	--accent-2: #8c7aff;
-	--button-text: #08111b;
-	--shadow: 0 30px 90px rgba(0, 0, 0, 0.34);
+	--bg-a: #060a14;
+	--bg-b: #03060e;
+	--phone: rgba(10, 14, 24, 0.9);
+	--panel: rgba(18, 22, 32, 0.92);
+	--panel-soft: rgba(18, 22, 32, 0.74);
+	--line: rgba(255, 255, 255, 0.08);
+	--text: #f6efe7;
+	--muted: rgba(231, 223, 215, 0.62);
+	--accent: #ffb24f;
+	--accent-2: #72b9ff;
+	--shadow: 0 30px 90px rgba(0, 0, 0, 0.42);
 	--app-height: 100vh;
 	--app-safe-top: 0px;
 	--app-safe-bottom: 0px;
@@ -23,27 +25,22 @@
 }
 
 html {
-	background: #03060d;
+	background: #02050d;
 }
 
 body {
 	margin: 0;
 	min-height: 100vh;
-	font-family: Inter, "Segoe UI", system-ui, sans-serif;
 	color: var(--text);
 	background:
-		radial-gradient(circle at 16% 8%, color-mix(in oklab, var(--accent) 20%, transparent), transparent 26%),
-		radial-gradient(circle at 84% 0%, color-mix(in oklab, var(--accent-2) 18%, transparent), transparent 28%),
-		linear-gradient(180deg, var(--bg-a), var(--bg-b));
+		radial-gradient(circle at 50% 10%, rgba(255, 178, 84, 0.08), transparent 22%),
+		radial-gradient(circle at 80% 80%, rgba(114, 185, 255, 0.12), transparent 25%),
+		linear-gradient(180deg, #070d19, #02050d);
 	overflow-x: hidden;
 }
 
 button {
 	font: inherit;
-}
-
-#root {
-	isolation: isolate;
 }
 
 .app-shell {
@@ -52,7 +49,7 @@ button {
 }
 
 .top-safe-area {
-	height: calc(32px + var(--app-safe-top));
+	height: calc(24px + var(--app-safe-top));
 }
 
 .screen-wrap {
@@ -62,699 +59,430 @@ button {
 
 .phone-shell {
 	position: relative;
-	padding: 14px 14px 18px;
+	padding: 14px 14px 20px;
 	border-radius: 34px;
 	background:
-		linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.015)),
+		radial-gradient(circle at 50% 42%, rgba(255, 255, 255, 0.03), transparent 34%),
+		linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01)),
 		var(--phone);
 	box-shadow: var(--shadow);
 	overflow: clip;
 	isolation: isolate;
 }
 
-.phone-shell::before,
-.phone-shell::after {
+.phone-shell::before {
 	content: "";
 	position: absolute;
+	inset: 0;
+	background:
+		radial-gradient(circle at 20% 18%, rgba(255, 176, 84, 0.08), transparent 18%),
+		radial-gradient(circle at 84% 76%, rgba(114, 185, 255, 0.1), transparent 22%);
 	pointer-events: none;
-	filter: blur(30px);
 }
 
-.phone-shell::before {
-	inset: -12% auto auto -12%;
-	width: 220px;
-	height: 220px;
-	background: radial-gradient(circle, color-mix(in oklab, var(--accent) 24%, transparent), transparent 66%);
-}
-
-.phone-shell::after {
-	inset: auto -16% 10% auto;
-	width: 220px;
-	height: 220px;
-	background: radial-gradient(circle, color-mix(in oklab, var(--accent-2) 22%, transparent), transparent 68%);
-}
-
-.topbar,
-.screen {
+.utility-bar,
+.balance-hud,
+.variant-screen,
+.screen-meta {
 	position: relative;
 	z-index: 1;
 }
 
-.topbar {
-	display: flex;
-	justify-content: space-between;
-	align-items: flex-start;
-	gap: 12px;
-}
-
-.profile-pill {
+.utility-bar {
 	display: flex;
 	align-items: center;
+	justify-content: space-between;
 	gap: 10px;
-	padding: 10px 12px;
-	border-radius: 999px;
-	background: rgba(255, 255, 255, 0.05);
 }
 
-.avatar-pill {
-	width: 34px;
-	height: 34px;
+.utility-button {
+	width: 38px;
+	height: 38px;
+	border: 1px solid var(--line);
 	border-radius: 999px;
+	background: rgba(255, 255, 255, 0.02);
+	color: var(--text);
 	display: grid;
 	place-items: center;
-	font-weight: 800;
-	background: linear-gradient(135deg, var(--accent), color-mix(in oklab, var(--accent-2) 54%, white 10%));
-	color: var(--button-text);
+	box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
 }
 
-.topbar-meta {
+.utility-button-left {
+	padding: 0;
+}
+
+.utility-dot {
+	width: 9px;
+	height: 9px;
+	border-radius: 999px;
+	background: linear-gradient(135deg, #f5df9b, #89ff7a);
+	box-shadow: 0 0 14px rgba(161, 255, 120, 0.55);
+}
+
+.utility-center {
 	display: grid;
-	justify-items: end;
-	gap: 4px;
-	font-size: 0.78rem;
-	color: var(--muted);
-	text-align: right;
+	justify-items: center;
+	gap: 2px;
 }
 
-.tiny-label,
-.status-pill span,
-.boost-pill span,
-.quick-card span,
-.loot-card span,
-.blueprint-card span,
-.raid-card span,
-.clan-chip span,
+.utility-center strong {
+	font-size: 0.82rem;
+}
+
+.tiny-copy,
+.footer-card span,
+.mission-pill span,
+.mission-card span,
+.upgrade-meter span,
+.module-chip span,
+.wide-panel span,
+.route-pill span,
+.rank-banner span,
+.tap-chip,
 .dock-label {
+	font-size: 0.66rem;
 	text-transform: uppercase;
-	letter-spacing: 0.14em;
-	font-size: 0.62rem;
+	letter-spacing: 0.16em;
 	color: var(--muted);
 }
 
-.screen {
-	padding-top: 12px;
-	padding-bottom: 82px;
-}
-
-.balance-block,
-.forge-header,
-.raid-header,
-.clan-banner,
-.boss-stage-copy {
+.balance-hud {
+	margin-top: 8px;
+	padding: 14px 12px 12px;
+	border-radius: 28px;
+	background: linear-gradient(180deg, rgba(22, 26, 38, 0.96), rgba(15, 19, 30, 0.94));
+	border: 1px solid rgba(255, 255, 255, 0.06);
 	text-align: center;
 }
 
-.balance-block p,
-.forge-header p,
-.raid-header p,
-.clan-banner p,
-.boss-stage-copy p {
+.balance-frame-line {
+	position: absolute;
+	left: 12px;
+	right: 12px;
+	bottom: 10px;
+	height: 18px;
+	border: 1px solid rgba(255, 176, 84, 0.18);
+	border-top: none;
+	border-radius: 0 0 18px 18px;
+	opacity: 0.7;
+	pointer-events: none;
+}
+
+.balance-hud p {
 	margin: 0;
 }
 
-.balance-block h1,
-.forge-header h1,
-.raid-header h1,
-.clan-banner h1,
-.boss-stage-copy h1 {
-	margin: 8px 0 8px;
-	font-size: clamp(2.45rem, 11vw, 3.7rem);
-	line-height: 0.9;
-	letter-spacing: -0.06em;
+.balance-hud h1 {
+	margin: 8px 0 6px;
+	font-size: clamp(2.5rem, 11.6vw, 4.2rem);
+	line-height: 0.94;
+	letter-spacing: 0.12em;
+	font-weight: 700;
 }
 
-.income-pill,
-.boss-timer,
-.forge-meter-card,
-.clan-medal {
+.income-chip {
 	display: inline-flex;
 	align-items: center;
-	justify-content: center;
-	padding: 9px 15px;
-	border-radius: 999px;
-	background: rgba(255, 255, 255, 0.06);
+	gap: 10px;
 	color: var(--muted);
 }
 
-.status-strip {
-	display: grid;
-	grid-template-columns: repeat(3, minmax(0, 1fr));
+.mini-plus {
+	width: 30px;
+	height: 30px;
+	border-radius: 999px;
+	border: 1px solid rgba(255, 176, 84, 0.26);
+	background: rgba(255, 255, 255, 0.02);
+	color: var(--text);
+}
+
+.variant-screen {
+	padding: 10px 0 100px;
+}
+
+.scene-copy,
+.mission-strip,
+.upgrade-meter,
+.galaxy-strip,
+.rank-banner {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
 	gap: 8px;
-	margin-top: 12px;
+	margin-bottom: 6px;
 }
 
-.status-pill,
-.boost-pill,
-.quick-card,
-.action-card,
-.loot-card,
-.blueprint-card,
-.raid-card,
-.clan-chip,
-.boss-header-card,
-.forge-node-card {
-	border-radius: 18px;
-	background: rgba(255, 255, 255, 0.05);
-}
-
-.status-pill,
-.quick-card,
-.loot-card,
-.clan-chip {
-	padding: 11px 9px;
-	text-align: center;
-}
-
-.status-pill strong,
-.boost-pill strong,
-.quick-card strong,
-.action-card strong,
-.loot-card strong,
-.blueprint-card strong,
-.raid-card strong,
-.clan-chip strong,
-.forge-node-card strong {
+.scene-copy strong,
+.mission-pill strong,
+.mission-card strong,
+.upgrade-meter strong,
+.module-chip strong,
+.wide-panel strong,
+.route-pill strong,
+.rank-banner strong,
+.footer-card strong {
 	display: block;
-	margin-top: 6px;
+	margin-top: 4px;
 	font-size: 0.98rem;
 }
 
-.tap-button {
+.scene-copy strong {
+	font-size: 0.88rem;
+	color: var(--muted);
+}
+
+.ship-visual-button {
+	position: relative;
+	display: block;
+	width: 100%;
 	border: none;
 	padding: 0;
 	background: transparent;
 	cursor: pointer;
-	position: relative;
-	z-index: 1;
 	touch-action: manipulation;
-	transition: transform 120ms ease;
 }
 
-.tap-button:active,
-.boost-pill:active,
-.action-card:active,
+.ship-visual-button:active,
 .dock-item:active {
-	transform: scale(0.975);
+	transform: scale(0.985);
 }
 
-.tap-aura,
-.bridge-hero::before,
-.boss-stage::before,
-.forge-stage::before,
-.raid-map-card::before,
-.clan-stage::before {
-	position: absolute;
-	content: "";
-	inset: 50% auto auto 50%;
-	transform: translate(-50%, -50%);
-	border-radius: 50%;
-	pointer-events: none;
-}
-
-.tap-aura,
-.bridge-hero::before {
-	width: 276px;
-	height: 276px;
-	background:
-		radial-gradient(circle, rgba(255, 255, 255, 0.11), rgba(255, 255, 255, 0.02) 46%, transparent 74%),
-		radial-gradient(circle, color-mix(in oklab, var(--accent) 18%, transparent), transparent 62%);
-}
-
-.hero-svg {
-	width: min(252px, 66vw);
+.ship-svg {
+	display: block;
+	width: 100%;
 	height: auto;
-	filter: drop-shadow(0 20px 56px rgba(0, 0, 0, 0.34));
+	max-width: 420px;
+	margin: 0 auto;
 }
 
-.bridge-hero,
-.boss-stage,
-.forge-stage,
-.raid-map-card,
-.clan-stage {
-	position: relative;
-	min-height: 244px;
-	margin-top: 10px;
-	overflow: clip;
+.ship-panel-line {
+	fill: none;
+	stroke: rgba(255, 255, 255, 0.15);
+	stroke-linecap: round;
 }
 
-.bridge-hero {
-	display: grid;
-	place-items: center;
+.engine-core {
+	fill: rgba(255, 231, 186, 0.92);
 }
 
-.hero-copy {
-	margin-top: 0;
-	text-align: center;
+.mission-ring {
+	fill: none;
+	stroke: rgba(255, 176, 84, 0.2);
+	stroke-width: 2.5;
 }
 
-.hero-copy strong {
-	font-size: 1.28rem;
-	letter-spacing: 0.08em;
-	text-transform: uppercase;
+.mission-beam {
+	fill: none;
+	stroke: rgba(255, 176, 84, 0.56);
+	stroke-width: 6;
+	stroke-linecap: round;
+	filter: blur(0.6px);
 }
 
-.hero-copy p,
-.blueprint-card p,
-.raid-card p {
-	margin: 4px 0 0;
-	color: var(--muted);
-	font-size: 0.84rem;
-	line-height: 1.35;
+.forge-scaffold {
+	fill: rgba(114, 185, 255, 0.04);
+	stroke: rgba(114, 185, 255, 0.22);
 }
 
-.side-badge {
+.forge-dot {
+	fill: #7effc4;
+}
+
+.forge-link {
+	fill: none;
+	stroke: rgba(126, 255, 196, 0.56);
+	stroke-width: 3;
+	stroke-linecap: round;
+}
+
+.orbit-line {
+	fill: none;
+	stroke: rgba(114, 185, 255, 0.34);
+	stroke-width: 2.5;
+}
+
+.galaxy-node {
+	fill: rgba(114, 185, 255, 0.78);
+}
+
+.rank-pedestal {
+	fill: rgba(255, 95, 215, 0.18);
+}
+
+.ship-shadow-ellipse {
+	fill: rgba(255, 255, 255, 0.04);
+}
+
+.ship-star-line {
+	fill: none;
+	stroke: rgba(255, 176, 84, 0.28);
+	stroke-linecap: round;
+	stroke-width: 2;
+}
+
+.tap-chip {
 	position: absolute;
-	padding: 8px 11px;
+	left: 50%;
+	transform: translateX(-50%);
+	bottom: 20px;
+	padding: 8px 14px;
 	border-radius: 999px;
 	background: rgba(255, 255, 255, 0.06);
-	color: var(--muted);
-	font-size: 0.8rem;
-	pointer-events: none;
-}
-
-.side-badge-left {
-	left: 4px;
-	top: 34%;
-}
-
-.side-badge-right {
-	right: 4px;
-	top: 34%;
-}
-
-.side-badge-bottom {
-	left: 50%;
-	bottom: 22px;
-	transform: translateX(-50%);
+	backdrop-filter: blur(10px);
 }
 
 .tap-burst {
 	position: absolute;
 	transform: translate(-50%, -50%);
-	font-weight: 800;
-	font-size: 1rem;
-	color: var(--text);
+	font-weight: 700;
+	font-size: 0.95rem;
+	color: #fff1dc;
 	text-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
 	animation: burst-up 650ms ease forwards;
 	pointer-events: none;
 	z-index: 2;
 }
 
-.boost-row,
-.quick-row,
-.boss-actions,
-.loot-strip,
-.forge-actions,
-.raid-footer-grid,
-.clan-actions {
+.footer-cards,
+.mission-actions,
+.upgrade-actions,
+.galaxy-panels,
+.rank-panels {
 	display: grid;
-	grid-template-columns: repeat(3, minmax(0, 1fr));
 	gap: 8px;
-	margin-top: 8px;
 }
 
-.bridge-task-bar {
-	margin-top: 8px;
-	padding: 11px 14px;
+.footer-cards {
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.footer-card,
+.mission-pill,
+.mission-card,
+.wide-panel,
+.module-chip,
+.route-pill {
+	padding: 12px 10px;
 	border-radius: 18px;
-	background: rgba(255, 255, 255, 0.05);
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	gap: 10px;
+	background: var(--panel-soft);
+	border: 1px solid rgba(255, 255, 255, 0.05);
+	box-shadow: inset 0 -12px 30px rgba(255, 255, 255, 0.01);
 }
 
-.bridge-task-bar strong {
-	font-size: 0.95rem;
-}
-
-.bridge-task-bar span:last-child {
-	color: var(--muted);
-	font-size: 0.84rem;
-}
-
-.boost-pill,
-.action-card {
-	border: none;
-	padding: 10px 8px;
-	color: var(--text);
-}
-
-.action-card {
-	grid-column: span 1;
-	text-align: center;
-}
-
-.action-card-primary,
-.quick-card.active,
-.blueprint-card.active,
-.raid-card.active {
-	background: linear-gradient(180deg, color-mix(in oklab, var(--accent) 18%, transparent), rgba(255, 255, 255, 0.04));
-}
-
-.boss-header-card {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	gap: 10px;
-	padding: 12px 14px;
-}
-
-.boss-header-card strong {
-	display: block;
-	margin-top: 4px;
-	font-size: 1rem;
-}
-
-.hp-track {
-	margin-top: 8px;
-	height: 10px;
-	border-radius: 999px;
-	background: rgba(255, 255, 255, 0.08);
-	overflow: hidden;
-}
-
-.hp-fill {
-	display: block;
-	height: 100%;
-	border-radius: inherit;
-	background: linear-gradient(90deg, #ffd86c, #ff8a3d);
-}
-
-.boss-stage {
-	display: grid;
-	grid-template-rows: auto 1fr auto;
-	padding: 8px 0 0;
-	min-height: 220px;
-}
-
-.boss-stage::before {
-	width: 288px;
-	height: 288px;
-	background: radial-gradient(circle, rgba(255, 178, 85, 0.2), transparent 68%);
-}
-
-.boss-stage-copy .income-pill {
-	margin-top: 2px;
-}
-
-.boss-tap-button {
-	justify-self: center;
-}
-
-.boss-blast {
-	position: absolute;
-	top: 52%;
-	width: 54px;
-	height: 6px;
-	border-radius: 999px;
-	background: linear-gradient(90deg, rgba(255, 196, 100, 0), rgba(255, 196, 100, 0.92));
-	filter: blur(1px);
-}
-
-.boss-blast-left {
-	left: -18px;
-	transform: rotate(-18deg);
-}
-
-.boss-blast-right {
-	right: -18px;
-	transform: scaleX(-1) rotate(-18deg);
-}
-
-.boss-markers {
-	display: grid;
-	grid-template-columns: repeat(3, minmax(0, 1fr));
-	gap: 8px;
-	margin-top: -18px;
-}
-
-.hero-svg-boss {
-	width: min(220px, 58vw);
-}
-
-.boss-reward-line {
-	display: grid;
-	grid-template-columns: repeat(3, minmax(0, 1fr));
-	gap: 8px;
-	margin-top: 8px;
-}
-
-.boss-reward-chip {
-	padding: 9px 8px;
-	border-radius: 16px;
-	background: rgba(255, 255, 255, 0.05);
-	text-align: center;
-}
-
-.boss-reward-chip strong {
-	display: block;
-	margin-top: 4px;
-	font-size: 0.9rem;
-}
-
-.forge-header {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	gap: 10px;
-	text-align: left;
-}
-
-.forge-meter-card {
-	padding-inline: 13px;
-}
-
-.forge-stage {
-	border-radius: 28px;
-	margin-top: 10px;
-	background: linear-gradient(180deg, rgba(116, 241, 211, 0.08), rgba(255, 255, 255, 0.02));
-}
-
-.forge-stage::before {
-	width: 248px;
-	height: 248px;
-	background: radial-gradient(circle, rgba(116, 241, 211, 0.18), transparent 68%);
-}
-
-.forge-tap-button {
-	position: absolute;
-	left: 50%;
-	top: 50%;
-	transform: translate(-50%, -48%);
-}
-
-.forge-node-card {
-	position: absolute;
-	padding: 9px 10px;
-	text-align: center;
-	min-width: 74px;
-}
-
-.forge-node-card span {
-	display: block;
-	font-size: 0.72rem;
-	color: var(--muted);
-	text-transform: uppercase;
-	letter-spacing: 0.12em;
-}
-
-.forge-node-card-top {
-	left: 50%;
-	top: 10px;
-	transform: translateX(-50%);
-}
-
-.forge-node-card-left {
-	left: 10px;
-	top: 92px;
-}
-
-.forge-node-card-right {
-	right: 10px;
-	top: 92px;
-}
-
-.forge-base {
-	position: absolute;
-	left: 50%;
-	bottom: 18px;
-	transform: translateX(-50%);
-	padding: 8px 12px;
-	border-radius: 999px;
-	background: rgba(255, 255, 255, 0.06);
-	color: var(--muted);
-}
-
-.forge-blueprints {
-	display: grid;
-	grid-template-columns: 1.15fr 0.85fr;
-	gap: 8px;
-	margin-top: 8px;
-}
-
-.blueprint-card {
-	padding: 10px;
-}
-
-.forge-actions,
-.clan-actions {
-	grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-
-.raid-header {
-	display: flex;
-	justify-content: space-between;
-	align-items: end;
-	gap: 10px;
-	text-align: left;
-}
-
-.raid-map-card {
-	padding: 8px 10px;
-	border-radius: 28px;
-	background: linear-gradient(180deg, rgba(111, 241, 208, 0.08), rgba(255, 255, 255, 0.02));
-}
-
-.raid-map-card::before {
-	width: 258px;
-	height: 258px;
-	background: radial-gradient(circle, rgba(83, 168, 255, 0.2), transparent 68%);
-}
-
-.route-line {
-	position: absolute;
-	left: 50%;
-	top: 22px;
-	bottom: 30px;
-	width: 2px;
-	transform: translateX(-50%);
-	background: linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.02));
-}
-
-.route-node {
-	position: absolute;
-	left: 50%;
-	transform: translateX(-50%);
-	min-width: 84px;
-	padding: 7px 9px;
-	border-radius: 16px;
-	background: rgba(9, 16, 28, 0.64);
-	text-align: center;
-}
-
-.route-node span {
-	display: block;
-	font-size: 0.7rem;
-	color: var(--muted);
-	text-transform: uppercase;
-	letter-spacing: 0.12em;
-}
-
-.route-node-top {
-	top: 10px;
-}
-
-.route-node-mid {
-	top: 72px;
-}
-
-.route-node-bottom {
-	bottom: 16px;
-}
-
-.raid-tap-button {
-	position: absolute;
-	left: 50%;
-	top: 50%;
-	transform: translate(-50%, -40%);
-}
-
-.route-streak,
-.clan-streak {
-	position: absolute;
-	left: 50%;
-	bottom: 52px;
-	transform: translateX(-50%);
-	padding: 8px 12px;
-	border-radius: 999px;
-	background: rgba(255, 255, 255, 0.06);
-	color: var(--muted);
-}
-
-.raid-footer-grid {
-	grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-
-.raid-card {
-	padding: 10px;
-}
-
-.clan-banner {
-	display: flex;
-	justify-content: space-between;
-	align-items: end;
-	gap: 10px;
-	text-align: left;
-}
-
-.clan-medal {
-	min-width: 54px;
-	font-weight: 700;
-}
-
-.clan-stage {
-	margin-top: 10px;
-	border-radius: 30px;
-	background: linear-gradient(180deg, rgba(255, 93, 208, 0.08), rgba(255, 255, 255, 0.02));
-	display: grid;
-	place-items: center;
-}
-
-.clan-stage::before {
-	width: 272px;
-	height: 272px;
-	background: radial-gradient(circle, rgba(255, 93, 208, 0.16), transparent 66%);
-}
-
-.clan-pedestal {
-	position: absolute;
-	left: 50%;
-	bottom: 42px;
-	width: 168px;
-	height: 20px;
-	transform: translateX(-50%);
-	border-radius: 999px;
-	background: linear-gradient(90deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.03));
-	filter: blur(1px);
-}
-
-.clan-tap-button {
+.footer-card {
 	position: relative;
-	top: -8px;
-}
-
-.clan-tribute {
-	position: absolute;
-	left: 50%;
-	top: 10px;
-	transform: translateX(-50%);
-	padding: 8px 12px;
-	border-radius: 18px;
-	background: rgba(255, 255, 255, 0.05);
+	overflow: hidden;
 	text-align: center;
 }
 
-.clan-tribute strong {
-	display: block;
-	margin-top: 4px;
+.footer-card::after,
+.dock-item.is-active::after {
+	content: "";
+	position: absolute;
+	left: 18px;
+	right: 18px;
+	bottom: 6px;
+	height: 3px;
+	border-radius: 999px;
+	background: linear-gradient(90deg, transparent, var(--accent), transparent);
 }
 
-.clan-rail {
+.footer-card-2::after,
+.dock-item:nth-child(3).is-active::after {
+	background: linear-gradient(90deg, transparent, rgba(191, 205, 255, 0.85), transparent);
+}
+
+.footer-card-3::after,
+.dock-item:nth-child(4).is-active::after {
+	background: linear-gradient(90deg, transparent, var(--accent-2), transparent);
+}
+
+.mission-strip {
+	margin-bottom: -8px;
+}
+
+.mission-strip,
+.galaxy-strip {
+	grid-template-columns: repeat(2, minmax(0, 1fr));
 	display: grid;
-	grid-template-columns: repeat(3, minmax(0, 1fr));
-	gap: 8px;
-	margin-top: 10px;
+}
+
+.ship-visual-button-compact .ship-svg,
+.ship-visual-button-upgrade .ship-svg,
+.ship-visual-button-galaxy .ship-svg,
+.ship-visual-button-rank .ship-svg {
+	max-width: 372px;
+}
+
+.mission-actions,
+.upgrade-actions,
+.galaxy-panels,
+.rank-panels {
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	margin-top: 8px;
+}
+
+.mission-card,
+.wide-panel {
+	text-align: center;
+}
+
+.mission-card-highlight,
+.wide-panel-active {
+	background:
+		linear-gradient(180deg, rgba(255, 176, 84, 0.14), rgba(255, 255, 255, 0.03)),
+		var(--panel);
+}
+
+.upgrade-stage {
+	position: relative;
+}
+
+.upgrade-meter {
+	padding: 10px 12px;
+	border-radius: 18px;
+	background: rgba(255, 255, 255, 0.04);
+}
+
+.module-chip {
+	position: absolute;
+	min-width: 84px;
+	text-align: center;
+	z-index: 1;
+}
+
+.module-chip-top {
+	left: 50%;
+	top: 8px;
+	transform: translateX(-50%);
+}
+
+.module-chip-left {
+	left: 4px;
+	top: 124px;
+}
+
+.module-chip-right {
+	right: 4px;
+	top: 112px;
+}
+
+.galaxy-strip {
+	margin-bottom: -4px;
+}
+
+.rank-banner {
+	padding: 10px 12px;
+	border-radius: 18px;
+	background: rgba(255, 255, 255, 0.04);
+}
+
+.screen-meta {
+	margin-top: 8px;
+	display: flex;
+	justify-content: space-between;
+	font-size: 0.74rem;
+	color: var(--muted);
 }
 
 .design-dock {
@@ -764,166 +492,86 @@ button {
 	transform: translateX(-50%);
 	width: min(560px, calc(100vw - 16px));
 	display: flex;
-	justify-content: space-between;
-	gap: 2px;
-	padding: 7px 10px;
-	border-radius: 22px;
-	background: rgba(7, 12, 22, 0.92);
-	backdrop-filter: blur(18px);
-	box-shadow: 0 18px 44px rgba(0, 0, 0, 0.24);
+	gap: 6px;
+	padding: 10px;
+	border-radius: 28px;
+	background: linear-gradient(180deg, rgba(18, 22, 32, 0.95), rgba(11, 15, 24, 0.98));
+	border: 1px solid rgba(255, 255, 255, 0.05);
+	box-shadow: 0 18px 44px rgba(0, 0, 0, 0.3);
 	z-index: 20;
 }
 
 .dock-item {
 	flex: 1 1 0;
-	border: none;
-	border-radius: 16px;
-	padding: 7px 2px 5px;
-	background: transparent;
+	position: relative;
+	border: 1px solid rgba(255, 255, 255, 0.04);
+	border-radius: 18px;
+	padding: 10px 4px 8px;
+	background: rgba(255, 255, 255, 0.02);
 	color: var(--text);
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	gap: 4px;
+	gap: 6px;
 	cursor: pointer;
 	touch-action: manipulation;
-	transition: transform 120ms ease;
 }
 
 .dock-icon {
-	width: 32px;
-	height: 32px;
-	border-radius: 12px;
+	width: 30px;
+	height: 30px;
 	display: grid;
 	place-items: center;
-	background: rgba(255, 255, 255, 0.06);
-	font-size: 1rem;
+}
+
+.dock-icon svg {
+	width: 20px;
+	height: 20px;
+	fill: none;
+	stroke: currentColor;
+	stroke-width: 1.7;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+	color: rgba(255, 255, 255, 0.78);
 }
 
 .dock-label {
-	font-size: 0.68rem;
-	letter-spacing: 0;
-	text-transform: none;
-	line-height: 1.05;
+	letter-spacing: 0.08em;
+	font-size: 0.64rem;
 }
 
-.dock-item.is-active .dock-icon {
-	background: linear-gradient(135deg, var(--accent), color-mix(in oklab, var(--accent-2) 52%, white 10%));
-	color: var(--button-text);
+.dock-item.is-active {
+	background: rgba(255, 255, 255, 0.04);
 }
 
+.dock-item.is-active .dock-icon svg,
 .dock-item.is-active .dock-label {
 	color: var(--text);
 }
 
-.ring-line {
-	fill: none;
-	stroke: rgba(255, 255, 255, 0.16);
-	stroke-width: 2;
-}
-
-.ring-line.soft {
-	stroke: rgba(255, 255, 255, 0.08);
-}
-
-.ring-line.warning {
-	stroke: rgba(255, 194, 95, 0.34);
-}
-
-.ring-line.teal {
-	stroke: rgba(114, 240, 208, 0.3);
-}
-
-.ring-line.pink {
-	stroke: rgba(255, 90, 207, 0.3);
-}
-
-.ship-cut {
-	fill: rgba(8, 16, 28, 0.92);
-}
-
-.wing-fill {
-	fill: rgba(214, 228, 255, 0.8);
-}
-
-.teal-wing {
-	fill: rgba(111, 241, 208, 0.66);
-}
-
-.spark {
-	fill: rgba(255, 255, 255, 0.92);
-}
-
-.ship-stroke {
-	fill: none;
-	stroke-width: 18;
-	stroke-linecap: round;
-	stroke-linejoin: round;
-}
-
-.warning-stroke {
-	stroke: rgba(255, 195, 97, 0.92);
-}
-
-.boss-core {
-	fill: rgba(27, 17, 4, 0.42);
-}
-
-.forge-frame {
-	fill: rgba(116, 241, 211, 0.08);
-	stroke: rgba(116, 241, 211, 0.3);
-	stroke-width: 2;
-}
-
-.forge-node {
-	fill: rgba(116, 241, 211, 0.92);
-}
-
-.pink-fill {
-	fill: rgba(255, 90, 207, 0.95);
-}
-
 .theme-v1 {
-	--accent: #76dcff;
-	--accent-2: #9e7eff;
+	--accent: #ffb24f;
+	--accent-2: #74bdff;
 }
 
 .theme-v2 {
-	--bg-a: #171108;
-	--bg-b: #0b0804;
-	--phone: rgba(24, 18, 10, 0.9);
-	--text: #fff8ee;
-	--muted: rgba(255, 239, 208, 0.7);
-	--accent: #ffcb68;
-	--accent-2: #ff8a3d;
-	--button-text: #1d1102;
+	--accent: #ffb24f;
+	--accent-2: #ff8058;
 }
 
 .theme-v3 {
-	--bg-a: #071615;
-	--bg-b: #04100f;
-	--phone: rgba(8, 22, 21, 0.9);
-	--accent: #74f1d3;
-	--accent-2: #58d5ff;
-	--button-text: #051513;
+	--accent: #79ffc5;
+	--accent-2: #70cbff;
 }
 
 .theme-v4 {
-	--bg-a: #071421;
-	--bg-b: #04101a;
-	--phone: rgba(8, 18, 28, 0.9);
-	--accent: #6ff1cb;
-	--accent-2: #53a8ff;
-	--button-text: #06161a;
+	--accent: #7fdcff;
+	--accent-2: #5d8cff;
 }
 
 .theme-v5 {
-	--bg-a: #111121;
-	--bg-b: #090713;
-	--phone: rgba(16, 14, 28, 0.9);
-	--accent: #7dd7ff;
-	--accent-2: #ff5dd0;
-	--button-text: #08121d;
+	--accent: #ffb24f;
+	--accent-2: #ff65d9;
 }
 
 @keyframes burst-up {
@@ -945,18 +593,18 @@ button {
 		padding-inline: max(8px, var(--app-safe-left));
 	}
 
-	.topbar {
-		flex-direction: column;
+	.balance-hud h1 {
+		font-size: clamp(2.2rem, 11vw, 3.7rem);
 	}
 
-	.forge-header,
-	.raid-header,
-	.clan-banner {
-		grid-template-columns: 1fr;
-		display: grid;
+	.ship-svg {
+		max-width: 344px;
 	}
 
-	.hero-svg {
-		width: min(236px, 66vw);
+	.ship-visual-button-compact .ship-svg,
+	.ship-visual-button-upgrade .ship-svg,
+	.ship-visual-button-galaxy .ship-svg,
+	.ship-visual-button-rank .ship-svg {
+		max-width: 312px;
 	}
 }

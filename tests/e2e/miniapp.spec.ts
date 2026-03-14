@@ -56,26 +56,26 @@ test("boots into portrait game screen with fixed bottom nav", async ({ page }) =
 	await expect(page.locator(".tap-button")).toBeVisible();
 	await expect(page.locator(".design-dock")).toBeVisible();
 	await expect(page.locator(".design-dock .dock-item")).toHaveCount(5);
-	await expect(page.getByText("Tap ship")).toBeVisible();
+	await expect(page.getByText("Salvage balance")).toBeVisible();
 });
 
 test("tap interaction updates state and variant switch reveals unique layouts", async ({ page }) => {
 	await page.goto("/");
 
-	await page.locator(".tap-button").click();
-	await expect(page.getByText("streak 1")).toBeVisible();
+	await page.locator(".ship-visual-button").click();
+	await expect(page.getByText(/streak 1/i)).toBeVisible();
 
-	await page.getByRole("tab", { name: /Boss/i }).click();
-	await expect(page.getByText("Solar Tyrant 78%")).toBeVisible();
+	await page.getByRole("tab", { name: /Mission/i }).click();
+	await expect(page.getByText("Solar Tyrant")).toBeVisible();
 	await expect(page.getByText("Strike boss")).toBeVisible();
 
-	await page.getByRole("tab", { name: /Forge/i }).click();
-	await expect(page.getByText("Nova wings")).toBeVisible();
+	await page.getByRole("tab", { name: /Upgrade/i }).click();
+	await expect(page.getByText(/Nova Wings/i)).toBeVisible();
 
-	await page.getByRole("tab", { name: /Raid/i }).click();
-	await expect(page.getByText("Launch raid")).toBeVisible();
+	await page.getByRole("tab", { name: /Galaxy/i }).click();
+	await expect(page.getByText("Deep Vega")).toBeVisible();
 
-	await page.getByRole("tab", { name: /Clan/i }).click();
-	await expect(page.getByText("Tribute vault")).toBeVisible();
-	await expect(page.getByText("Collect tribute")).toBeVisible();
+	await page.getByRole("tab", { name: /Rank/i }).click();
+	await expect(page.getByText("Prestige vault")).toBeVisible();
+	await expect(page.getByText("Collect tribute", { exact: true })).toBeVisible();
 });
